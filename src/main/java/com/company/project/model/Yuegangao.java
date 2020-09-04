@@ -1,5 +1,6 @@
 package com.company.project.model;
 
+import java.util.Date;
 import javax.persistence.*;
 
 public class Yuegangao {
@@ -23,7 +24,15 @@ public class Yuegangao {
 
     private String standard;
 
+    @Column(name = "currentValue")
+    private String currentvalue;
+
+    @Column(name = "finishTime")
+    private Date finishtime;
+
     private String comment;
+
+    private String citation;
 
     /**
      * @return Id
@@ -124,16 +133,58 @@ public class Yuegangao {
     }
 
     /**
-     * @return 备注栏
+     * @return currentValue
+     */
+    public String getCurrentvalue() {
+        return currentvalue;
+    }
+
+    /**
+     * @param currentvalue
+     */
+    public void setCurrentvalue(String currentvalue) {
+        this.currentvalue = currentvalue;
+    }
+
+    /**
+     * @return finishTime
+     */
+    public Date getFinishtime() {
+        return finishtime;
+    }
+
+    /**
+     * @param finishtime
+     */
+    public void setFinishtime(Date finishtime) {
+        this.finishtime = finishtime;
+    }
+
+    /**
+     * @return comment
      */
     public String getComment() {
         return comment;
     }
 
     /**
-     * @param 备注栏
+     * @param comment
      */
     public void setComment(String comment) {
         this.comment = comment;
+    }
+
+    /**
+     * @return citation
+     */
+    public String getCitation() {
+        return citation;
+    }
+
+    /**
+     * @param citation
+     */
+    public void setCitation(String citation) {
+        this.citation = citation;
     }
 }
