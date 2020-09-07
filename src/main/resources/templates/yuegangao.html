@@ -1,30 +1,20 @@
 <!DOCTYPE html>
-
 <html lang="zh-CN" xmlns:th="http://www.thymeleaf.org" >
 <head>
 <meta charset="utf-8"></meta>
-<meta http-equiv="X-UA-Compatible" content="IE=edge"></meta>
-    <meta name="viewport" content="width=device-width, initial-scale=1"></meta>
-    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
-
-    <!-- Bootstrap -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" rel="stylesheet" >
-    </link>
+    <link rel="stylesheet" href="/webjars/bootstrap/3.3.7-1/css/bootstrap.min.css" />
+	<script type="text/javascript">
 	
-  </head>
+	
+	</script>    
+</head>
   <body>
-
-    <!-- jQuery (Bootstrap 的所有 JavaScript 插件都依赖 jQuery，所以必须放在前边) -->
-    <script src="https://cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
-    <!-- 加载 Bootstrap 的所有 JavaScript 插件。你也可以根据需要只加载单个插件。 -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script>
-    
-    
-    <br/>
-	<h2 align="center">生态智能指标体系</h2>
+    <div th:replace="nav :: myfooter"  ></div>
+  	
+	<h2 align="center">粤港澳大湾区生态系统管理指标体系</h2>
 	<br/>
 	<div class="container">
-<table class="table table-hover" >
+	<table class="table table-hover" >
     <tr>
         <th>id</th>
         <th>类别</th>
@@ -34,7 +24,7 @@
         <th>单位</th>
         <th>生态因子</th>
         <th>达标时间</th>
-        <th>备注</th>
+        <th>指标来源</th>
     </tr>
     <tr  th:each="infoStat : ${list}" >
         <td th:text="${infoStat.id}"></td>
@@ -45,53 +35,52 @@
         <td th:text="${infoStat.unit}"></td>
         <td th:text="${infoStat.ecologicalfactor}"></td>
         
-        <td th:switch="${infoStat.finishtime!=null}" >
+        <td width="100px" th:switch="${infoStat.finishtime!=null}" >
         	<div th:case="true" th:text="${#dates.format(infoStat.finishtime, 'yyyy-MM-dd')}"></div>
        	 	<div th:case="false" th:text="${infoStat.finishtime}"></div>
-        
         </td>
         
-        <td th:text="${infoStat.comment}"></td>
+        <td width="180px" th:text="${infoStat.citation}"></td>
     </tr>
     </table>
     </div>
     
-    <div  class="modal-footer no-margin-top">
+    <!-- <div  class="modal-footer no-margin-top">
     <nav style="text-align: center;">
     <ul class="pagination  no-margin">
-        <!-- 首页 -->
-        <li class="page-item">	<!-- '/pageController?pageNum='+${pageNum} -->
+        首页
+        <li class="page-item">	'/pageController?pageNum='+${pageNum}
             <a th:href="@{'/test1?page=1&amp;size=${pageInfo.size}'}">首页</a>
         </li>
 
-        <!-- 上一页 -->
+        上一页
         <li class="page-item" th:if="${pageInfo.pageNum!=1 and pageInfo.pageNum!=0}">
         <a class="page-link" th:href="@{/test1?(size=${pageInfo.size},page=${pageInfo.hasPreviousPage}?${pageInfo.prePage}:${pageInfo.pages})}">上一页</a></li>
     
-		<!-- <li class="page-item active"><a class="page-link"><span th:text="第+${pageInfo.pageNum}+页"></span></a></li>
-    	 -->
-    	<!-- 中间页 -->
+		<li class="page-item active"><a class="page-link"><span th:text="第+${pageInfo.pageNum}+页"></span></a></li>
+    	
+    	中间页
         <li class="page-item " th:each="pageNum:${pageInfo.navigatepageNums}">
         	
             <a th:href="@{/test1?(size=${pageInfo.size},page=${pageNum})}" th:text="${pageNum }" th:if="${pageNum ne pageInfo.pageNum}"></a>
             <a th:href="@{/test1?(size=${pageInfo.size},page=${pageNum})}" th:text="${pageNum }" th:if="${pageNum eq pageInfo.pageNum}" th:style="'font-weight:bold;background: #6faed9;'"></a>
         </li>
     	
-    	<!-- <li class="page-item"><a class="page-link"><span th:text="第+${pageInfo}+页"></span></a></li>
-     -->
-        <!-- 下一页 -->
+    	<li class="page-item"><a class="page-link"><span th:text="第+${pageInfo}+页"></span></a></li>
+    
+        下一页
         <li class="page-item" th:if="${pageInfo.pageNum != pageInfo.pages}">
         <a class="page-link" th:href="@{/test1?size=(${pageInfo.size},page=${pageInfo.hasNextPage}?${pageInfo.nextPage}:${pageInfo.pages})}">下一页</a></li>
 
     	<li class="page-item"><a class="page-link"><span th:text="共+${pageInfo.pages}+页"></span></a></li>
-        <!-- 尾页 -->
+        尾页
        	<li class="page-item" th:if="${pageInfo.pageNum != pageInfo.pages}">
        	<a class="page-link" th:href="@{/test1?(size=${pageInfo.size},page=${pageInfo.pages})}">尾页</a>
        	</li>
 
     </ul>
     </nav>
-</div>
+</div> -->
     
     </body>
 </html>

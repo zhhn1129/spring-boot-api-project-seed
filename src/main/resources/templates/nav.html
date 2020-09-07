@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org" >
+<head >
+	<meta charset="utf-8"></meta>
+    <link rel="stylesheet" href="/webjars/bootstrap/3.3.7-1/css/bootstrap.min.css" />
+    <script src="/webjars/jquery/3.1.1/jquery.min.js"></script>
+    <script src="/webjars/bootstrap/3.3.7-1/js/bootstrap.min.js"></script>
+
+	<script type="text/javascript">
+	
+	
+	</script>
+</head>
+  <body>
+  <div th:fragment="myfooter">
+        <div class="header">
+        <nav class="navbar navbar-inverse" role="navigation">
+		    <div class="container-fluid">
+		    <div class="navbar-header">
+		        <a class="navbar-brand" th:href="@{/pdca}">基于pdca的生态指标管理趋善化</a>
+		    </div>
+		    <div>
+		        <ul class="nav navbar-nav">
+		            <li><a th:href="@{/yuegangao}">粤港澳大湾区生态系统管理指标体系</a></li>
+		            <li><a th:href="@{/mulihe}">惠州市木沥河生态系统管理指标体系</a></li>
+		            <li><a th:href="@{/allIndex}">备选指标库</a></li>
+		            <li class="dropdown">
+		                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+		                    	其他 <b class="caret"></b>
+		                </a>
+		                <ul class="dropdown-menu">
+		                    <li><a th:href="@{/echarts}">条形图</a></li>
+		                    <li><a href="#"></a></li>
+		                    <li class="divider"></li>
+		                    <li><a href="#"> </a></li>
+		                    <li class="divider"></li>
+		                    <li><a href="#"> </a></li>
+		                </ul>
+		            </li>
+		        </ul>
+		    </div>
+		    </div>
+		</nav>
+        </div>
+        
+        <script src="/webjars/jquery/3.1.1/jquery.min.js"></script>
+	    <script src="/webjars/bootstrap/3.3.7-1/js/bootstrap.min.js"></script>
+	
+		<script type="text/javascript">
+			/* $(document).ready(function(){
+				$("li").click(function(){
+					//alert(123);
+					$("li.active").removeClass("active");	
+					$(this).parent.addClass("active");
+				});
+			}); */
+		
+		</script>
+	        
+    </div>
+  	
+	
+    
+    </body>
+</html>

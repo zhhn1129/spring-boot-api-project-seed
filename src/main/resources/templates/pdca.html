@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"></meta>
+    <link rel="stylesheet" href="/webjars/bootstrap/3.3.7-1/css/bootstrap.min.css" />
+    <title>Document</title>
+    <style>
+        html,body{
+        margin: 0;
+        padding: 0;
+        }
+        #wrap{
+            width: 100%;
+            overflow: hidden;
+            background: #ccc;
+        }
+        #main{
+            width: 100%;
+            background: #ccc;
+            position: relative;
+            top:0;
+            transition: all 1s ease;
+        }
+        .page{
+            width:100%;
+            margin:0;
+        }
+        #page1{
+            background:white;
+        }
+        #page2{
+            background:white;
+        }
+        #page3{
+            background:#BF4938;
+        }
+        #page4{
+            background:#2932E1;
+ 
+    </style>
+</head>
+<body>  
+<div th:replace="nav :: myfooter"  ></div>
+<div id="wrap">
+    <div id="main">
+        <div id="page1" class="page">
+        	
+        	<div class="container">
+<div class="row">
+<h2 style="text-align: center;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PDCA循环介绍</h2>
+<div style="background-color:; height: 30px"></div>
+<div class="col-sm-4"></div>
+<div class="col-sm-4">
+        	<img  src="../static/pic/pdca.png"></img>
+        	</div>
+	      
+</div>
+    <div class="row">
+     <div style="background-color:; height: 50px"></div>
+     	
+    	</div>
+       	<div class="row">
+       	<div class="col-sm-3">
+   </div>
+   <div class="col-sm-7">
+    	<h3>PDCA循环是20世纪20年代由美国质量管理专家休哈特博士首先提出，后来戴明将其进一步完善后获得普及，所以又称戴明环。PDCA循环是一个持续改进的模型，包括四个循环反复的步骤，即Plan(计划)、Do(执行)、Check(检查) 和 Action(改进)。
+			</h3>
+      </div> 
+       	</div>
+    </div>
+</div>
+        <div id="page2" class="page">
+        
+        <div class="container">
+<div class="row">
+<h2 style="text-align: center;">通过PDCA循环持续改进实现生态系统管理趋善化的目的</h2>
+</div>
+    <div class="row">
+        	<div class="col-sm-1"></div>
+        	<div class="col-sm-8">
+        	<img  src="../static/pic/pdca1.png"></img>
+        	</div>
+    </div>
+</div></div>
+        <!-- <div id="page3" class="page">page3</div>
+        <div id="page4" class="page">page4</div>
+        <div id="page5" class="page">page5</div> -->
+    </div>   
+</div>
+</body>
+<script type="text/javascript">
+ 
+    $(function(){
+        getSize()
+        $(window).resize(function(){
+            now = 0;
+            main.style.top = now;
+            getSize()
+        })
+        // 对滚动事件的函数绑定，大多数浏览器提供了 “mousewheel” 事件，Firefox 3.5+不支持，但支持相同作用的事件：”DOMMouseScroll”；
+        if(navigator.userAgent.toLowerCase().indexOf("firefox") != -1){
+            document.addEventListener("DOMMouseScroll",scrollFun);
+        }else if(document.addEventListener){
+            document.addEventListener("mousewheel",scrollFun,false);
+        }else if(document.attachEvent){
+            document.attachEvent("onmousewheel",scrollFun);
+        }else{
+            document.onmousewheel = scrollFun;
+        }
+ 
+    })
+ 
+    var pages = document.getElementsByClassName("page");
+    var wrap = document.getElementById("wrap");
+    var main = document.getElementById("main");
+    function getSize(){
+        var len = document.documentElement.clientHeight || document.body.clientHeight;
+        wrap.style.height = len + "px";
+        /*<![CDATA[*/
+        for(var i=0; i<pages.length; i++){
+        	/*]]>*/
+        	pages[i].style.height = len + "px";
+        }
+    }
+    var startTime = 0;
+    var endTime = 0;
+    var now = 0;
+    function scrollFun(e){
+         
+        var len = document.documentElement.clientHeight || document.body.clientHeight;/*当前page高度设置*/
+        startTime = new Date().getTime();
+        var event = e || window.event;
+        var dir = event.detail || -event.wheelDelta; /*event.detail:正值说明滚轮是向上滚动*/
+        var pageLength = pages.length - 1; /*page 数量*/
+         
+        if(startTime - endTime > 1000){
+        	/*<![CDATA[*/
+        	if(dir>0 && now > -pageLength*len){
+        		/*]]>*/
+                // 向上
+                now -= len;
+                main.style.top = now +"px";
+                endTime = new Date().getTime();
+                /*<![CDATA[*/
+            }else if(dir<0 && now < 0){
+            	/*]]>*/
+            	now += len;
+                main.style.top = now +"px";
+                endTime = new Date().getTime();
+            }
+        }else{
+            return false
+        }
+    }
+ 
+</script>
+</html>

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org" >
+<head>
+<meta charset="utf-8"></meta>
+    <link rel="stylesheet" href="/webjars/bootstrap/3.3.7-1/css/bootstrap.min.css" />
+    <title>生态系统智能指标体系备选指标库</title>
+
+  
+  </head>
+  <body>
+    <div th:replace="nav :: myfooter"  ></div>
+    
+    <div class="container">
+	<h2 align="center">生态系统智能指标体系备选指标库</h2>
+	<br/>
+	<div class="align-items-center">
+            
+		<div class="dataTables_wrapper no-footer">
+		<table  class="table table-hover">
+    		<tr>
+	        <th >
+	        <a th:href="@{/allIndex?(page=1,size=${pageInfo.size},orderBy='id')}">id</a>
+	        </th>
+	        <th>类别</th>
+	        <!-- <th>一级指标</th> -->
+	        <th>指标名称</th>
+	        <th><a th:href="@{/allIndex?(page=1,size=${pageInfo.size},orderBy='ecologicalfactor')}">生态因子</a></th>
+	        <th>指标来源</th>
+	        <th>发布单位</th>
+	        <th>发布时间</th>
+	        <th>备注</th>
+	    	</tr>
+	    	<tr  th:each="infoStat : ${list}" >
+		        <td style="display" th:text="${infoStat.id}"></td>
+		        <td th:text="${infoStat.psr}"></td>
+		        <!-- <td th:text="${infoStat.indextype}"></td> -->
+		        <td th:text="${infoStat.indexname}"></td>
+		        <td th:text="${infoStat.ecologicalfactor}"></td>
+		        <td th:text="${infoStat.citation}"></td>
+		        <td th:text="${infoStat.issueunit}"></td>
+		        <td th:text="${infoStat.issueyear}"></td>
+		        <!-- <td th:switch="${infoStat.finishtime!=null}" >
+		        	<div th:case="true" th:text="${#dates.format(infoStat.finishtime, 'yyyy-MM-dd')}"></div>
+		       	 	<div th:case="false" th:text="${infoStat.finishtime}"></div>
+		        </td> -->
+		        
+		        <td th:text="${infoStat.comment}"></td>
+	    	</tr>
+   	 	</table>
+    	</div>
+    </div>
+    
+    <div  class="modal-footer no-margin-top">
+    <nav style="text-align: center;">
+    <ul class="pagination  no-margin">
+        <!-- 首页 -->
+        <li class="page-item">	<!-- '/pageController?pageNum='+${pageNum} -->
+            <a th:href="@{/allIndex?(page=1,size=${pageInfo.size})}">首页</a>
+        </li>
+        <!-- 上一页 -->
+        <li class="page-item" th:if="${pageInfo.pageNum!=1 and pageInfo.pageNum!=0}">
+        <a class="page-link" th:href="@{/allIndex?(size=${pageInfo.size},page=${pageInfo.hasPreviousPage}?${pageInfo.prePage}:${pageInfo.pages})}">上一页</a></li>
+    
+		<!-- <li class="page-item active"><a class="page-link"><span th:text="第+${pageInfo.pageNum}+页"></span></a></li>
+    	 -->
+    	<!-- 中间页 -->
+        <li class="page-item " th:each="pageNum:${pageInfo.navigatepageNums}">
+            <a th:href="@{/allIndex?(size=${pageInfo.size},page=${pageNum})}" th:text="${pageNum }" th:if="${pageNum ne pageInfo.pageNum}"></a>
+            <a th:href="@{/allIndex?(size=${pageInfo.size},page=${pageNum})}" th:text="${pageNum }" th:if="${pageNum eq pageInfo.pageNum}" th:style="'font-weight:bold;background: #6faed9;'"></a>
+        </li>
+    	<!-- <li class="page-item"><a class="page-link"><span th:text="第+${pageInfo}+页"></span></a></li>
+     -->
+        <!-- 下一页 -->
+        <li class="page-item" th:if="${pageInfo.pageNum != pageInfo.pages}">
+        <a class="page-link" th:href="@{/allIndex?size=(${pageInfo.size},page=${pageInfo.hasNextPage}?${pageInfo.nextPage}:${pageInfo.pages})}">下一页</a></li>
+
+    	<li class="page-item"><a class="page-link"><span th:text="共+${pageInfo.pages}+页"></span></a></li>
+        <!-- 尾页 -->
+       	<li class="page-item" th:if="${pageInfo.pageNum != pageInfo.pages}">
+       	<a class="page-link" th:href="@{/allIndex?(size=${pageInfo.size},page=${pageInfo.pages})}">尾页</a>
+       	</li>
+
+    </ul>
+    </nav>
+</div>
+    </div>
+    </body>
+</html>

@@ -6,12 +6,15 @@
       WARNING - @mbg.generated
     -->
     <id column="Id" jdbcType="INTEGER" property="id" />
-    <result column="psr" jdbcType="VARCHAR" property="psr" />
-    <result column="firstIndex" jdbcType="VARCHAR" property="firstindex" />
-    <result column="secondIndex" jdbcType="VARCHAR" property="secondindex" />
-    <result column="ecologicalFactor" jdbcType="VARCHAR" property="ecologicalfactor" />
-    <result column="unit" jdbcType="VARCHAR" property="unit" />
-    <result column="standard" jdbcType="VARCHAR" property="standard" />
-    <result column="comment" jdbcType="VARCHAR" property="comment" />
+    <result column="psr" jdbcType="NVARCHAR" property="psr" />
+    <result column="firstIndex" jdbcType="NVARCHAR" property="firstindex" />
+    <result column="secondIndex" jdbcType="NVARCHAR" property="secondindex" />
+    <result column="ecologicalFactor" jdbcType="NVARCHAR" property="ecologicalfactor" />
+    <result column="unit" jdbcType="NVARCHAR" property="unit" />
+    <result column="standard" jdbcType="NVARCHAR" property="standard" />
+    <result column="currentValue" jdbcType="NVARCHAR" property="currentvalue" />
+    <result column="finishTime" jdbcType="DATE" property="finishtime" />
+    <result column="comment" jdbcType="NVARCHAR" property="comment" />
+    <result column="citation" jdbcType="VARCHAR" property="citation" />
   </resultMap>
 </mapper>
