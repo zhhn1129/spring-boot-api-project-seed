@@ -21,8 +21,8 @@
 
   <select id="findQualified" resultType="com.company.project.model.Mulihe">
     SELECT * FROM mulihe
-    <!--WHERE (rules='≤' AND currentValue <= standard)
-    or (rules='≥' and currentValue>=standard) or currentValue=1-->;
+    WHERE (rules='≤' AND currentValue <![CDATA[ <= ]]> standard)
+    or (rules='≥' and currentValue <![CDATA[ >= ]]> standard) or currentValue=1;
   </select>
 
 </mapper>
