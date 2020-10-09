@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"></meta>
+    <link rel="stylesheet" href="/webjars/bootstrap/3.3.7-1/css/bootstrap.min.css"/>
+    <title>基于pdca的生态指标管理趋善化</title>
+    <style>
+        p{
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+<div th:replace="nav :: myfooter"></div>
+<div class="card">
+    <ul class="nav nav-tabs" role="tablist">
+        <li class="active"><a th:href="@{/pdca/plan}">计划阶段</a></li>
+        <li><a th:href="@{/pdca/doAndCheck}">执行与检查阶段</a></li>
+        <li><a th:href="@{/pdca/action}">改进阶段</a></li>
+    </ul>
+</div>
+
+<div id="wrap">
+    <div id="main">
+        <div id="page1" class="page">
+            <div class="container">
+
+                <div class="row">
+                    <h2 style="text-align: center;">指标管理体系趋善化的计划阶段</h2>
+                    <div class="col-sm-offset-2">
+                        <p>计划阶段的主要内容是对指标体系的规划和设计阶段，以目标导向和问题导向为指引对指标体系进行构建。</p>
+                        <p>目标导向是落实新的发展形势下国家政策法规和相关规划对生态城市发展提出的新要求，同时满足各类示范区评价与考核的要求。</p>
+                        <p>问题导向是对上版指标体系及其实施情况进行梳理与评估，分析各类指标存在的问题。</p>
+                        <p>首先，在理清目标和问题的基础上，从实际出发，有针对性地提出适合粤港澳大湾区发展定位和特点的指标体系，给出指标选取、指标解释、目标值设定的来源与依据。其次，对具体指标分析可达性，并提出相应的发展策略、发展方式及管控建议，确保规划目标的实现。最后，对更新优化后的指标体系进行动态评估。
+                        </p>
+                    </div>
+                </div>
+                <div class="row">
+
+                    <div class="col-sm-offset-2">
+                        <img height="70%" width="70%" src="../../static/pic/指标体系.png"></img>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <!--<div id="page2" class="page">
+
+            <div class="container">
+                <div class="row">
+                    <h2 style="text-align: center;">通过PDCA循环持续改进实现生态系统管理趋善化的目的</h2>
+                </div>
+                <div class="row">
+                    <div class="col-sm-1"></div>
+                    <div class="col-sm-8">
+                        <img src="../../static/pic/pdca1.png"></img>
+                    </div>
+                </div>
+            </div>
+        </div>-->
+        <!-- <div id="page3" class="page">page3</div>
+        <div id="page4" class="page">page4</div>
+        <div id="page5" class="page">page5</div> -->
+    </div>
+</div>
+</body>
+<script type="text/javascript">
+
+    $(function () {
+        getSize()
+        $(window).resize(function () {
+            now = 0;
+            main.style.top = now;
+            getSize()
+        })
+        // 对滚动事件的函数绑定，大多数浏览器提供了 “mousewheel” 事件，Firefox 3.5+不支持，但支持相同作用的事件：”DOMMouseScroll”；
+        if (navigator.userAgent.toLowerCase().indexOf("firefox") != -1) {
+            document.addEventListener("DOMMouseScroll", scrollFun);
+        } else if (document.addEventListener) {
+            document.addEventListener("mousewheel", scrollFun, false);
+        } else if (document.attachEvent) {
+            document.attachEvent("onmousewheel", scrollFun);
+        } else {
+            document.onmousewheel = scrollFun;
+        }
+
+    })
+
+    var pages = document.getElementsByClassName("page");
+    var wrap = document.getElementById("wrap");
+    var main = document.getElementById("main");
+
+    function getSize() {
+        var len = document.documentElement.clientHeight || document.body.clientHeight;
+        wrap.style.height = len + "px";
+        /*<![CDATA[*/
+        for (var i = 0; i < pages.length; i++) {
+            /*]]>*/
+            pages[i].style.height = len + "px";
+        }
+    }
+
+    var startTime = 0;
+    var endTime = 0;
+    var now = 0;
+
+    function scrollFun(e) {
+
+        var len = document.documentElement.clientHeight || document.body.clientHeight;/*当前page高度设置*/
+        startTime = new Date().getTime();
+        var event = e || window.event;
+        var dir = event.detail || -event.wheelDelta; /*event.detail:正值说明滚轮是向上滚动*/
+        var pageLength = pages.length - 1; /*page 数量*/
+
+        if (startTime - endTime > 1000) {
+            /*<![CDATA[*/
+            if (dir > 0 && now > -pageLength * len) {
+                /*]]>*/
+                // 向上
+                now -= len;
+                main.style.top = now + "px";
+                endTime = new Date().getTime();
+                /*<![CDATA[*/
+            } else if (dir < 0 && now < 0) {
+                /*]]>*/
+                now += len;
+                main.style.top = now + "px";
+                endTime = new Date().getTime();
+            }
+        } else {
+            return false
+        }
+    }
+
+</script>
+</html>

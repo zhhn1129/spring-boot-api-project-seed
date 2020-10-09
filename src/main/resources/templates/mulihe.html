@@ -18,8 +18,8 @@
 		<div class="dataTables_wrapper no-footer">
 		<table  class="table table-hover">
     		<tr>
-	        <th>序号</th>
-	        <th>类别</th>
+	        <th width="46px">序号</th>
+	        <th width="96px">类别</th>
 	        <th>一级指标</th>
 	        <th width="180px">二级指标</th>
 	        <th width="70px">现状值
@@ -33,11 +33,20 @@
 	        <th>发布单位</th>
 	        <th>备注</th>
 	    	</tr>
-	    	<tr  th:each="infoStat : ${list}" >
+	    	<tr th:each="infoStat : ${list}" >
 		        <td style="display" th:text="${infoStat.indexid}"></td>
 		        <td th:text="${infoStat.psr}"></td>
-		        <td width="88px" th:text="${infoStat.firstindex}"></td>
-		        <td th:text="${infoStat.secondindex}"></td>
+
+				<div th:if="${#strings.contains(infoStat.firstindex,'智能')}">
+		        	<td width="88px" >
+						<a class="tooltip-show" onmouseover="showtip()" title="取自平台物联网数据" href="http://120.79.133.100" th:text="${infoStat.firstindex}"></a>
+					</td>
+				</div>
+				<div th:if="${!#strings.contains(infoStat.firstindex,'智能')}">
+					<td width="88px" th:text="${infoStat.firstindex}"></td>
+				</div>
+
+				<td th:text="${infoStat.secondindex}"></td>
 		        <!-- 规则不为空且规则为大于等于 -->
 		        <div th:if="${infoStat.rules}!=null and ${infoStat.rules eq '≥'}">
 		       	 	<!--现状值大于标准值  -->

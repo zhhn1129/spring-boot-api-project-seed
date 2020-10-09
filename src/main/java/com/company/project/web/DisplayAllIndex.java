@@ -4,9 +4,6 @@
 package com.company.project.web;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -18,22 +15,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.alibaba.druid.util.HttpClientUtils;
 import com.company.project.model.AllIndexSimple;
 import com.company.project.model.Mulihe;
-import com.company.project.model.Yuegangao;
 import com.company.project.service.AllIndexSimpleService;
 import com.company.project.service.MuliheService;
-import com.company.project.service.YuegangaoService;
-import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 
-import cn.hutool.http.Header;
-import cn.hutool.http.HttpRequest;
-import cn.hutool.json.JSONArray;
-import cn.hutool.json.JSONObject;
-import cn.hutool.json.JSONUtil;
 import tk.mybatis.mapper.entity.Condition;
 
 
@@ -51,7 +39,7 @@ public class DisplayAllIndex {
     private MuliheService muliheService;
 	
 	@RequestMapping("allIndex")
-	public String allIndex(Model m,@RequestParam(defaultValue = "0") Integer page, @RequestParam(defaultValue = "10") Integer size, @RequestParam(defaultValue = "psr") String orderBy) {
+	public String allIndex(Model m,@RequestParam(defaultValue = "0") Integer page, @RequestParam(defaultValue = "10") Integer size, @RequestParam(defaultValue = "") String orderBy) {
 		PageHelper.startPage(page, size);		
 		Condition c=new Condition(AllIndexSimple.class);
 		c.orderBy(orderBy);
@@ -114,11 +102,11 @@ public class DisplayAllIndex {
         return list;
     }
 
-    @RequestMapping(value = "aa")
-	public String aa(Model m){
+    @RequestMapping(value = "muliheup2standard")
+	public String muliheUp2Standard(Model m){
 		List list= muliheService.findQualified();
-		m.addAttribute("a",list);
+		m.addAttribute("list",list);
 
-		return "aa";
+		return "muliheup2standard";
 	}
 }

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8"></meta>
     <link rel="stylesheet" href="/webjars/bootstrap/3.3.7-1/css/bootstrap.min.css" />
-    <title>Document</title>
+    <title>基于pdca的生态指标管理趋善化</title>
     <style>
         html,body{
         margin: 0;
@@ -35,53 +35,57 @@
             background:#BF4938;
         }
         #page4{
-            background:#2932E1;
- 
+            background:#2932E1;}
+        p{
+            font-size: 16px;
+        }
     </style>
 </head>
 <body>  
 <div th:replace="nav :: myfooter"  ></div>
+
+<div class="card">
+    <ul class="nav nav-tabs" role="tablist">
+        <li  ><a th:href="@{/pdca/plan}">计划阶段</a></li>
+        <li class="active"><a th:href="@{/pdca/doAndCheck}">执行与检查阶段</a></li>
+        <li ><a th:href="@{/pdca/action}">改进阶段</a></li>
+    </ul>
+</div>
 <div id="wrap">
     <div id="main">
         <div id="page1" class="page">
         	
         	<div class="container">
 <div class="row">
-<h2 style="text-align: center;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PDCA循环介绍</h2>
-<div style="background-color:; height: 30px"></div>
-<div class="col-sm-4"></div>
-<div class="col-sm-4">
-        	<img  src="../static/pic/pdca.png"></img>
+    <div class="col-sm-offset-3">
+        <h2>指标管理体系趋善化的执行与检查阶段</h2>
+    </div>
+<div style=" height: 30px"></div>
+<div class="col-sm-offset-2">
+        	<img  src="../../static/pic/执行与检查阶段.png"></img>
         	</div>
 	      
 </div>
     <div class="row">
-     <div style="background-color:; height: 50px"></div>
+     <div style=" height: 50px"></div>
      	
     	</div>
        	<div class="row">
-       	<div class="col-sm-3">
+       	<div class="col-sm-2">
    </div>
    <div class="col-sm-7">
-    	<h3>PDCA循环是20世纪20年代由美国质量管理专家休哈特博士首先提出，后来戴明将其进一步完善后获得普及，所以又称戴明环。PDCA循环是一个持续改进的模型，包括四个循环反复的步骤，即Plan(计划)、Do(执行)、Check(检查) 和 Action(改进)。
-			</h3>
-      </div> 
+       <p>执行与检查阶段的主要内容分为两部分：</p>
+       <p>一是对选取的指标进行监测并记录相应的结果；</p>
+       <p>二是对各指标项的达标情况进行评估总结，根据考核评估的结果，结合各地区发展状况，为下一阶段提供评估建议。</p>
+
+   </div>
        	</div>
     </div>
 </div>
-        <div id="page2" class="page">
+        <!--<div id="page2" class="page">
         
-        <div class="container">
-<div class="row">
-<h2 style="text-align: center;">通过PDCA循环持续改进实现生态系统管理趋善化的目的</h2>
-</div>
-    <div class="row">
-        	<div class="col-sm-1"></div>
-        	<div class="col-sm-8">
-        	<img  src="../static/pic/pdca1.png"></img>
-        	</div>
-    </div>
-</div></div>
+
+        </div>-->
         <!-- <div id="page3" class="page">page3</div>
         <div id="page4" class="page">page4</div>
         <div id="page5" class="page">page5</div> -->

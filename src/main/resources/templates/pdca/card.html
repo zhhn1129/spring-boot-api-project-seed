@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8"></meta>
+
+
+</head>
+<body>
+
+	<div th:fragment="card">
+		<div class="card">
+			<ul class="nav nav-tabs" role="tablist">
+				<li role="presentation" class="active"><a role="tab" aria-controls="home1" data-toggle="tab" href="#Section1">计划阶段</a></li>
+				<li role="presentation"><a role="tab" aria-controls="profile1" data-toggle="tab" href="http://www.baidu.com">执行与检查阶段</a></li>
+				<li role="presentation"><a role="tab" aria-controls="messages1" data-toggle="tab" th:href="@{/pdca/action}">改进阶段</a></li>
+            </ul>
+		</div>
+
+        <div class="row">
+            <div class="col-md-offset-2 col-md-8">
+                <div class="tab" role="tabpanel">
+                    <!-- Nav tabs -->
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li role="presentation" class="active"><a href="#Section1" aria-controls="home1" role="tab" data-toggle="tab">Section 1</a></li>
+                        <li role="presentation"><a href="#Section2" aria-controls="profile1" role="tab" data-toggle="tab">Section 2</a></li>
+                        <li role="presentation"><a href="#Section3" aria-controls="messages1" role="tab" data-toggle="tab">Section 3</a></li>
+                    </ul>
+                    <!-- Tab panes-->
+                    <div class="tab-content tabs">
+                        <div role="tabpanel" class="tab-pane fade in active" id="Section1">
+                            <h3>Section 1</h3>
+                            <p>.......</p>
+                        </div>
+                        <div role="tabpanel" class="tab-pane fade" id="Section2">
+                            <h3>Section 2</h3>
+                            <p>......</p>
+                        </div>
+                        <div role="tabpanel" class="tab-pane fade" id="Section3">
+                            <h3>Section 3</h3>
+                            <p>.......</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+	</div>
+
+</body>
+</html>

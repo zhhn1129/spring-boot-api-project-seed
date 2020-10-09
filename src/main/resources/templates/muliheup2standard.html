@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"></meta>
+    <link rel="stylesheet" href="/webjars/bootstrap/3.3.7-1/css/bootstrap.min.css" />
+
+</head>
+<body>
+<div th:replace="nav :: myfooter"></div>
+
+<h2 align="center">惠州市木沥河生态系统管理指标体系达标指标</h2>
+<br/>
+<div class="container">
+    <div class="align-items-center">
+
+        <div class="dataTables_wrapper no-footer">
+            <table class="table table-hover">
+                <tr>
+                    <th>序号</th>
+                    <th>类别</th>
+                    <th>一级指标</th>
+                    <th width="180px">二级指标</th>
+                    <th width="70px">现状值
+                        <a onmouseover="showtip()" href="#" class="tooltip-show" data-toggle="tooltip"
+                           title="现状值达标显示为&lt;span style='color:limegreen'&gt;绿色&lt;/span&gt;，不达标为&lt;span style='color:red'&gt;红色&lt;/span&gt;">
+                            <sup>?</sup>
+                        </a>
+                    </th>
+                    <th>标准值</th>
+                    <th>单位</th>
+                    <th>发布单位</th>
+                    <th>备注</th>
+                </tr>
+                <tr th:each="infoStat : ${list}">
+                    <td style="display" th:text="${infoStat.indexid}"></td>
+                    <td th:text="${infoStat.psr}"></td>
+                    <td width="88px" th:text="${infoStat.firstindex}"></td>
+                    <td th:text="${infoStat.secondindex}"></td>
+                    <!-- 规则不为空且规则为大于等于 -->
+                    <div th:if="${infoStat.rules}!=null and ${infoStat.rules eq '≥'}">
+                        <!--现状值大于标准值  -->
+                        <div th:switch="${infoStat.currentvalue ge infoStat.standard }">
+                            <div th:if="${infoStat.currentvalue eq 1}">
+                                <td width="66px" style="color: limegreen " th:text="达标"></td>
+                            </div>
+                            <div th:if="${infoStat.currentvalue eq 0}">
+                                <td style="color: red " th:text="未达标"></td>
+                            </div>
+
+                            <td th:case="true" style="color: limegreen " th:text="${infoStat.currentvalue}"></td>
+                            <!-- 现状值不大于标准值且不为0和1 -->
+                            <div th:if="${infoStat.currentvalue ne 0 and infoStat.currentvalue ne 1}">
+                                <td th:case="false" style="color: red " th:text="${infoStat.currentvalue}"></td>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 规则不为空且规则为小于等于 -->
+                    <div th:if="${infoStat.rules}!=null and ${infoStat.rules eq '≤'}">
+                        <!-- 现状值大于等于标准值 -->
+                        <div th:switch="${infoStat.currentvalue ge infoStat.standard }">
+                            <td th:case="true" style="color: red " th:text="${infoStat.currentvalue}"></td>
+                            <td th:case="false" style="color: limegreen " th:text="${infoStat.currentvalue}"></td>
+                        </div>
+                    </div>
+                    <!-- 规则为空的情况 -->
+                    <div th:if="${infoStat.rules}==null">
+                        <div th:switch="${infoStat.currentvalue eq 0}">
+                            <td style="color: red" th:case="true" th:text="未达标"></td>
+                            <td style="color: limegreen" th:case="false" th:text="达标"></td>
+                        </div>
+                    </div>
+
+                    <td>
+                        <div th:text="${infoStat.standard}"></div>
+                        <div th:if="${infoStat.standard}!=null">
+                            <a th:href="@{/modifyMulihe?(id=${infoStat.id})}">修改</a>
+                        </div>
+                    </td>
+
+
+                    <td width="75px" th:text="${infoStat.unit}"></td>
+                    <td th:text="${infoStat.citation}"></td>
+
+                    <td th:text="${infoStat.comment}"></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"></meta>
+    <link rel="stylesheet" href="/webjars/bootstrap/3.3.7-1/css/bootstrap.min.css"/>
+    <title>Document</title>
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+        }
+
+        #wrap {
+            width: 100%;
+            overflow: hidden;
+            background: #ccc;
+        }
+
+        #main {
+            width: 100%;
+            background: #ccc;
+            position: relative;
+            top: 0;
+            transition: all 1s ease;
+        }
+
+        .page {
+            width: 100%;
+            margin: 0;
+        }
+
+        #page1 {
+            background: white;
+        }
+
+        #page2 {
+            background: white;
+        }
+
+        #page3 {
+            background: #BF4938;
+        }
+
+        #page4 {
+            background: #2932E1;
+        }
+
+    </style>
+</head>
+<body>
+<div th:replace="nav :: myfooter"></div>
+<div id="wrap">
+    <div id="main">
+        <div id="page1" class="page">
+
+            <div class="container">
+                <div class="row">
+                    <h2 style="text-align: center;">粤港澳大湾区指标体系优化技术路线</h2>
+                    <div class="col-sm-3"></div>
+                    <div class="col-sm-4">
+                        <img height="160%" width="160%" src="../static/pic/指标体系.png"></img>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-8">
+                        <p>以目标导向和问题导向为指引开展研究工作。目标导向是落实新的发展形势下国家政策法规和相关规划对生态城市发展提出的新要求，同时满足各类示范区评价与考核的要求。
+                            问题导向是对上版指标体系及其实施情况进行梳理与评估，分析各类指标存在的问题。</p>
+                        <p> 首先，在理清目标和问题的基础上，从实际出发，有针对性地提出适合粤港澳大湾区发展定位和特点的指标体系，给出指标选取、指标解释、目标值设定的来源与依据。
+                            其次，对具体指标分析可达性，提出相应的发展策略、发展方式及管控建议，确保规划目标的实现。
+                            最后，提出指标体系的部门责任分解和实施保障策略，全面指引城市规划建设与运营管理。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="page2" class="page">
+
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-8">
+                        <h2 style="text-align: center;">指标优化升级</h2>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-8">
+                        <img height="110%" width="110%" src="../static/pic/指标优化升级.png"></img>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-8">
+                    <p>
+                        根据考核评估的结果，结合各地区发展状况，重新确定各指标的标准值，以实现指标体系的实时性和动态性，避免传统静态指标出现的指标时效等问题。
+                        指标的修正与更新包括两方面内容，一是对已有指标值的修订，二是对指标项的修正。
+                        在指标体系运行过程中，会不断有新的发展要求与标准出台，需要对原始指标体系进行补充和完善。</p>
+                    <p>另外，具体指标在指引城市发展建设实践中也会出现一些问题，如指标值选取标准偏高，导致指标可达性弱，或指标值选取标准偏低，导致指标滞后，无法准确指引当地的发展建设。
+                        因此，在保证发展目标不变的前提下，应根据外部要求的变化和实际建设情况，及时对指标体系进行调整、更新与优化，形成开放的指标体系，以弹性的形式对接新的城市建设和管理需求，保证指标体系的时效性、先进性与可达性。
+                    </p>
+                </div>
+            </div>
+        </div>
+        <!-- <div id="page3" class="page">page3</div>
+        <div id="page4" class="page">page4</div>
+        <div id="page5" class="page">page5</div> -->
+    </div>
+</div>
+</body>
+<script type="text/javascript">
+
+    $(function () {
+        getSize()
+        $(window).resize(function () {
+            now = 0;
+            main.style.top = now;
+            getSize()
+        })
+        // 对滚动事件的函数绑定，大多数浏览器提供了 “mousewheel” 事件，Firefox 3.5+不支持，但支持相同作用的事件：”DOMMouseScroll”；
+        if (navigator.userAgent.toLowerCase().indexOf("firefox") != -1) {
+            document.addEventListener("DOMMouseScroll", scrollFun);
+        } else if (document.addEventListener) {
+            document.addEventListener("mousewheel", scrollFun, false);
+        } else if (document.attachEvent) {
+            document.attachEvent("onmousewheel", scrollFun);
+        } else {
+            document.onmousewheel = scrollFun;
+        }
+
+    })
+
+    var pages = document.getElementsByClassName("page");
+    var wrap = document.getElementById("wrap");
+    var main = document.getElementById("main");
+
+    function getSize() {
+        var len = document.documentElement.clientHeight || document.body.clientHeight;
+        wrap.style.height = len + "px";
+        /*<![CDATA[*/
+        for (var i = 0; i < pages.length; i++) {
+            /*]]>*/
+            pages[i].style.height = len + "px";
+        }
+    }
+
+    var startTime = 0;
+    var endTime = 0;
+    var now = 0;
+
+    function scrollFun(e) {
+
+        var len = document.documentElement.clientHeight || document.body.clientHeight;/*当前page高度设置*/
+        startTime = new Date().getTime();
+        var event = e || window.event;
+        var dir = event.detail || -event.wheelDelta; /*event.detail:正值说明滚轮是向上滚动*/
+        var pageLength = pages.length - 1; /*page 数量*/
+
+        if (startTime - endTime > 1000) {
+            /*<![CDATA[*/
+            if (dir > 0 && now > -pageLength * len) {
+                /*]]>*/
+                // 向上
+                now -= len;
+                main.style.top = now + "px";
+                endTime = new Date().getTime();
+                /*<![CDATA[*/
+            } else if (dir < 0 && now < 0) {
+                /*]]>*/
+                now += len;
+                main.style.top = now + "px";
+                endTime = new Date().getTime();
+            }
+        } else {
+            return false
+        }
+    }
+
+</script>
+</html>
