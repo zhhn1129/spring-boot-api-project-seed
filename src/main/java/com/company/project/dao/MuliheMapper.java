@@ -9,5 +9,7 @@ public interface MuliheMapper extends Mapper<Mulihe> {
 
     List<Mulihe> findQualified();
 
-
+    public static void main(String[] args) {
+        System.out.println(-0.05<-0.03);
+    }
 }

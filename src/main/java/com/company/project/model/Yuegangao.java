@@ -1,52 +1,26 @@
 package com.company.project.model;
 
-import java.util.Date;
 import javax.persistence.*;
 
 public class Yuegangao {
-    @Id
-    @Column(name = "Id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
-
     private String psr;
 
     @Column(name = "firstIndex")
     private String firstindex;
 
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+
     @Column(name = "secondIndex")
     private String secondindex;
-
-    @Column(name = "ecologicalFactor")
-    private String ecologicalfactor;
 
     private String unit;
 
     private String standard;
 
-    @Column(name = "currentValue")
-    private String currentvalue;
-
-    @Column(name = "finishTime")
-    private Date finishtime;
-
-    private String comment;
-
-    private String citation;
-
-    /**
-     * @return Id
-     */
-    public Integer getId() {
-        return id;
-    }
-
-    /**
-     * @param id
-     */
-    public void setId(Integer id) {
-        this.id = id;
-    }
+    @Id
+    @Column(name = "pkId")
+    private Integer pkid;
 
     /**
      * @return psr
@@ -77,6 +51,20 @@ public class Yuegangao {
     }
 
     /**
+     * @return id
+     */
+    public Integer getId() {
+        return id;
+    }
+
+    /**
+     * @param id
+     */
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    /**
      * @return secondIndex
      */
     public String getSecondindex() {
@@ -88,20 +76,6 @@ public class Yuegangao {
      */
     public void setSecondindex(String secondindex) {
         this.secondindex = secondindex;
-    }
-
-    /**
-     * @return ecologicalFactor
-     */
-    public String getEcologicalfactor() {
-        return ecologicalfactor;
-    }
-
-    /**
-     * @param ecologicalfactor
-     */
-    public void setEcologicalfactor(String ecologicalfactor) {
-        this.ecologicalfactor = ecologicalfactor;
     }
 
     /**
@@ -133,58 +107,16 @@ public class Yuegangao {
     }
 
     /**
-     * @return currentValue
+     * @return pkId
      */
-    public String getCurrentvalue() {
-        return currentvalue;
+    public Integer getPkid() {
+        return pkid;
     }
 
     /**
-     * @param currentvalue
+     * @param pkid
      */
-    public void setCurrentvalue(String currentvalue) {
-        this.currentvalue = currentvalue;
-    }
-
-    /**
-     * @return finishTime
-     */
-    public Date getFinishtime() {
-        return finishtime;
-    }
-
-    /**
-     * @param finishtime
-     */
-    public void setFinishtime(Date finishtime) {
-        this.finishtime = finishtime;
-    }
-
-    /**
-     * @return comment
-     */
-    public String getComment() {
-        return comment;
-    }
-
-    /**
-     * @param comment
-     */
-    public void setComment(String comment) {
-        this.comment = comment;
-    }
-
-    /**
-     * @return citation
-     */
-    public String getCitation() {
-        return citation;
-    }
-
-    /**
-     * @param citation
-     */
-    public void setCitation(String citation) {
-        this.citation = citation;
+    public void setPkid(Integer pkid) {
+        this.pkid = pkid;
     }
 }

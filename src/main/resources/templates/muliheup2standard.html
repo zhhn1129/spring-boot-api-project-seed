@@ -39,32 +39,32 @@
                     <!-- 规则不为空且规则为大于等于 -->
                     <div th:if="${infoStat.rules}!=null and ${infoStat.rules eq '≥'}">
                         <!--现状值大于标准值  -->
-                        <div th:switch="${infoStat.currentvalue ge infoStat.standard }">
-                            <div th:if="${infoStat.currentvalue eq 1}">
+                        <div th:switch="${infoStat.data2019 ge infoStat.standard }">
+                            <div th:if="${infoStat.data2019 eq 1}">
                                 <td width="66px" style="color: limegreen " th:text="达标"></td>
                             </div>
-                            <div th:if="${infoStat.currentvalue eq 0}">
+                            <div th:if="${infoStat.data2019 eq 0}">
                                 <td style="color: red " th:text="未达标"></td>
                             </div>
 
-                            <td th:case="true" style="color: limegreen " th:text="${infoStat.currentvalue}"></td>
+                            <td th:case="true" style="color: limegreen " th:text="${infoStat.data2018}"></td>
                             <!-- 现状值不大于标准值且不为0和1 -->
-                            <div th:if="${infoStat.currentvalue ne 0 and infoStat.currentvalue ne 1}">
-                                <td th:case="false" style="color: red " th:text="${infoStat.currentvalue}"></td>
+                            <div th:if="${infoStat.data2019 ne 0 and infoStat.data2019 ne 1}">
+                                <td th:case="false" style="color: red " th:text="${infoStat.data2018}"></td>
                             </div>
                         </div>
                     </div>
                     <!-- 规则不为空且规则为小于等于 -->
                     <div th:if="${infoStat.rules}!=null and ${infoStat.rules eq '≤'}">
                         <!-- 现状值大于等于标准值 -->
-                        <div th:switch="${infoStat.currentvalue ge infoStat.standard }">
-                            <td th:case="true" style="color: red " th:text="${infoStat.currentvalue}"></td>
-                            <td th:case="false" style="color: limegreen " th:text="${infoStat.currentvalue}"></td>
+                        <div th:switch="${infoStat.data2019 ge infoStat.standard }">
+                            <td th:case="true" style="color: red " th:text="${infoStat.data2019}"></td>
+                            <td th:case="false" style="color: limegreen " th:text="${infoStat.data2019}"></td>
                         </div>
                     </div>
                     <!-- 规则为空的情况 -->
                     <div th:if="${infoStat.rules}==null">
-                        <div th:switch="${infoStat.currentvalue eq 0}">
+                        <div th:switch="${infoStat.data2019 eq 0}">
                             <td style="color: red" th:case="true" th:text="未达标"></td>
                             <td style="color: limegreen" th:case="false" th:text="达标"></td>
                         </div>

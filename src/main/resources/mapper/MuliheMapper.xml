@@ -6,23 +6,23 @@
       WARNING - @mbg.generated
     -->
     <id column="Id" jdbcType="INTEGER" property="id" />
-    <result column="psr" jdbcType="VARCHAR" property="psr" />
-    <result column="firstIndex" jdbcType="VARCHAR" property="firstindex" />
-    <result column="indexId" jdbcType="VARCHAR" property="indexid" />
-    <result column="secondIndex" jdbcType="VARCHAR" property="secondindex" />
-    <result column="unit" jdbcType="VARCHAR" property="unit" />
-    <result column="currentValue" jdbcType="REAL" property="currentvalue" />
-    <result column="rules" jdbcType="VARCHAR" property="rules" />
+    <result column="psr" jdbcType="NVARCHAR" property="psr" />
+    <result column="firstIndex" jdbcType="NVARCHAR" property="firstindex" />
+    <result column="indexId" jdbcType="NVARCHAR" property="indexid" />
+    <result column="secondIndex" jdbcType="NVARCHAR" property="secondindex" />
+    <result column="unit" jdbcType="NVARCHAR" property="unit" />
+    <result column="data2018" jdbcType="REAL" property="data2018" />
+    <result column="rules" jdbcType="NVARCHAR" property="rules" />
     <result column="standard" jdbcType="REAL" property="standard" />
-    <result column="citation" jdbcType="VARCHAR" property="citation" />
-    <result column="comment" jdbcType="VARCHAR" property="comment" />
-    <result column="data_2018" jdbcType="REAL" property="data2018" />
+    <result column="citation" jdbcType="NVARCHAR" property="citation" />
+    <result column="comment" jdbcType="NVARCHAR" property="comment" />
+    <result column="data2019" jdbcType="REAL" property="data2019" />
   </resultMap>
 
   <select id="findQualified" resultType="com.company.project.model.Mulihe">
     SELECT * FROM mulihe
-    WHERE (rules='≤' AND currentValue <![CDATA[ <= ]]> standard)
-    or (rules='≥' and currentValue <![CDATA[ >= ]]> standard) or currentValue=1;
+    WHERE (rules='≤' AND data2019 <![CDATA[ <= ]]> standard)
+    or (rules='≥' and data2019 <![CDATA[ >= ]]> standard) or data2019=1;
   </select>
 
 </mapper>

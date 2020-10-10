@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org" >
+<head>
+<meta charset="utf-8"></meta>
+    <link rel="stylesheet" href="/webjars/bootstrap/3.3.7-1/css/bootstrap.min.css" />
+	<script type="text/javascript">
+	
+	
+	</script>    
+</head>
+  <body>
+    <div th:replace="nav :: myfooter"  ></div>
+  	
+	<h2 align="center">粤港澳大湾区生态系统管理指标体系</h2>
+
+	<div class="container">
+	<table class="table table-hover" >
+    <tr>
+        <th>id</th>
+        <th width="230px">二级指标</th>
+        <th width="60px">标准值</th>
+        <th width="80px">单位</th>
+        <th>广州</th>
+        <th>深圳</th>
+        <th>珠海</th>
+        <th>佛山</th>
+        <th>惠州</th>
+        <th>东莞</th>
+        <th>中山</th>
+        <th>江门</th>
+        <th>肇庆</th>
+    </tr>
+    <tr  th:each="infoStat : ${list}" >
+        <td th:text="${infoStat.indexid}"></td>
+        <td th:text="${infoStat.secondindex}"></td>
+        <div th:if="${infoStat.standard!=null}">
+        <div th:switch="${#strings.contains(infoStat.secondindex,'不透') or #strings.contains(infoStat.secondindex,'空气质量')}">
+            <div th:if="${infoStat.rules!=null}">
+                <td th:case="true" th:text="${infoStat.rules}+${#numbers.formatDecimal(infoStat.standard*100,1,0)}"></td>
+                <td th:case="false" th:text="${infoStat.rules}+${infoStat.standard}"></td>
+            </div>
+            <div th:if="${infoStat.rules==null}">
+                <td th:case="true" th:text="${#numbers.formatDecimal(infoStat.standard*100,1,0)}"></td>
+                <td th:case="false" th:text="${infoStat.standard}"></td>
+            </div>
+        </div>
+        </div>
+        <div th:if="${infoStat.standard==null}">
+            <td th:text="'—'"></td>
+        </div>
+        <td th:text="${infoStat.unit}"></td>
+
+        <!--guangzhou 规则不为空且规则为大于等于 -->
+        <div th:if="${infoStat.guangzhou!=null}">
+        <div th:if="${infoStat.rules}!=null and ${infoStat.rules eq '≥'}">
+            <!--现状值大于标准值  -->
+            <div th:switch="${infoStat.guangzhou ge infoStat.standard }">
+                <div th:if="${infoStat.guangzhou eq 1}">
+                    <td width="66px" style="color: limegreen " th:text="达标" ></td>
+                </div>
+                <div th:if="${infoStat.guangzhou eq 0}">
+                    <td style="color: red " th:text="未达标" ></td>
+                </div>
+
+                <!-- 现状值不大于标准值且不为0和1 -->
+                <div th:if="${infoStat.guangzhou ne 0 and infoStat.guangzhou ne 1}">
+                    <!--空气质量定制-->
+                    <div th:if="${!#strings.contains(infoStat.secondindex,'空气质量优良天数')}">
+                        <td th:case="true" style="color: limegreen " th:text="${#numbers.formatDecimal(infoStat.guangzhou,1,2)}" ></td>
+                    </div>
+                    <div th:if="${#strings.contains(infoStat.secondindex,'空气质量优良天数')}">
+                        <td style="color: limegreen " th:text="${#numbers.formatDecimal(infoStat.guangzhou*100,1,2)}" ></td>
+                    </div>
+                    <!--空气质量end-->
+                    <td th:case="false" style="color: red " th:text="${#numbers.formatDecimal(infoStat.guangzhou,1,2)}" ></td>
+                </div>
+            </div>
+        </div>
+        <!-- 规则不为空且规则为小于等于 -->
+        <div th:if="${infoStat.rules}!=null and ${infoStat.rules eq '≤'}">
+            <!-- 现状值大于等于标准值 -->
+            <div th:switch="${infoStat.guangzhou ge infoStat.standard }">
+
+                <!--不透水面定制-->
+                <div th:if="${!#strings.contains(infoStat.secondindex,'不透水面')}">
+                    <td th:case="true" style="color: red " th:text="${#numbers.formatDecimal(infoStat.guangzhou,1,2)}" ></td>
+                    <td th:case="false" style="color: limegreen " th:text="${#numbers.formatDecimal(infoStat.guangzhou,1,2)}" ></td>
+                </div>
+                <div th:if="${#strings.contains(infoStat.secondindex,'不透水面')}">
+                    <td th:case="true" style="color: red " th:text="${#numbers.formatDecimal(infoStat.guangzhou,1,2)}" ></td>
+                    <td th:case="false" style="color: limegreen " th:text="${#numbers.formatDecimal(infoStat.guangzhou*100,1,2)}" ></td>
+                </div>
+                <!--不透水面end-->
+            </div>
+        </div>
+        <!-- 规则为空的情况 -->
+        <div th:if="${infoStat.rules}==null">
+            <div th:switch="${infoStat.guangzhou eq 0}">
+                <td style="color: red" th:case="true" th:text="未达标"></td>
+
+            </div>
+            <div th:switch="${#strings.contains(infoStat.secondindex,'GDP能耗')}">
+                <div th:if="${!#strings.contains(infoStat.secondindex,'森林覆盖')}">
+                    <td style="color: limegreen" th:case="false" th:text="达标"></td>
+                </div>
+                <div th:if="${#strings.contains(infoStat.secondindex,'森林覆盖')}">
+                    <td style="color: limegreen" th:case="false" th:text="${infoStat.guangzhou}"></td>
+                </div><div th:case="true">
+                <td style="color: limegreen" th:text="${infoStat.guangzhou}"></td>
+                </div>
+            </div>
+        </div>
+        </div>
+        <div th:if="${infoStat.guangzhou==null}">
+            <td style="" th:text="'&nbsp;—'"></td>
+        </div>
+        <!--guangzhou end-->
+        <!--shenzhen 规则不为空且规则为大于等于 -->
+        <div th:if="${infoStat.shenzhen!=null}">
+        <div th:if="${infoStat.rules}!=null and ${infoStat.rules eq '≥'}">
+            <!--现状值大于标准值  -->
+            <div th:switch="${infoStat.shenzhen ge infoStat.standard }">
+                <div th:if="${infoStat.shenzhen eq 1}">
+                    <td width="66px" style="color: limegreen " th:text="达标" ></td>
+                </div>
+                <div th:if="${infoStat.shenzhen eq 0}">
+                    <td style="color: red " th:text="未达标" ></td>
+                </div>
+
+                <!-- 现状值不大于标准值且不为0和1 -->
+                <div th:if="${infoStat.shenzhen ne 0 and infoStat.shenzhen ne 1}">
+                    <!--空气质量定制-->
+                    <div th:if="${!#strings.contains(infoStat.secondindex,'空气质量优良天数')}">
+                        <td th:case="true" style="color: limegreen " th:text="${#numbers.formatDecimal(infoStat.shenzhen,1,2)}" ></td>
+                        <td th:case="false" style="color: red " th:text="${#numbers.formatDecimal(infoStat.shenzhen,1,2)}" ></td>
+                    </div>
+                    <div th:if="${#strings.contains(infoStat.secondindex,'空气质量优良天数')}">
+                        <td th:case="true" style="color: limegreen " th:text="${#numbers.formatDecimal(infoStat.shenzhen*100,1,2)}" ></td>
+                        <td th:case="false" style="color: red " th:text="${#numbers.formatDecimal(infoStat.shenzhen*100,1,2)}" ></td>
+                    </div>
+                    <!--空气质量end-->
+                </div>
+            </div>
+        </div>
+        <!-- 规则不为空且规则为小于等于 -->
+        <div th:if="${infoStat.rules}!=null and ${infoStat.rules eq '≤'}">
+            <!-- 现状值大于等于标准值 -->
+            <div th:switch="${infoStat.shenzhen ge infoStat.standard }">
+                <!--不透水面定制-->
+                <div th:if="${!#strings.contains(infoStat.secondindex,'不透水面')}">
+                    <td th:case="true" style="color: red " th:text="${#numbers.formatDecimal(infoStat.shenzhen,1,2)}" ></td>
+                    <td th:case="false" style="color: limegreen " th:text="${#numbers.formatDecimal(infoStat.shenzhen,1,2)}" ></td>
+                </div>
+                <div th:if="${#strings.contains(infoStat.secondindex,'不透水面')}">
+                    <td th:case="true" style="color: red " th:text="${#numbers.formatDecimal(infoStat.shenzhen*100,1,2)}" ></td>
+                    <td th:case="false" style="color: limegreen " th:text="${#numbers.formatDecimal(infoStat.shenzhen*100,1,2)}" ></td>
+                </div>
+                <!--不透水面end-->
+            <!-- 现状值不大于标准值且不为0和1 -->
+            <div th:if="${infoStat.shenzhen ne 0 and infoStat.shenzhen ne 1}">
+                <td th:case="false" style="color: red " th:text="${#numbers.formatDecimal(infoStat.shenzhen,1,2)}" ></td>
+            </div>
+            </div>
+        </div>
+        <!-- 规则为空的情况 -->
+        <div th:if="${infoStat.rules}==null">
+            <div th:switch="${infoStat.shenzhen eq 0}">
+                <td style="color: red" th:case="true" th:text="未达标"></td>
+            </div>
+            <div th:switch="${#strings.contains(infoStat.secondindex,'GDP能耗')}">
+                <div th:if="${!#strings.contains(infoStat.secondindex,'森林覆盖')}">
+                    <td style="color: limegreen" th:case="false" th:text="达标"></td>
+                </div>
+                <div th:if="${#strings.contains(infoStat.secondindex,'森林覆盖')}">
+                    <td style="color: limegreen" th:case="false" th:text="${infoStat.shenzhen}"></td>
+                </div>
+                <div th:case="true">
+                    <td style="color: red" th:text="${infoStat.shenzhen}"></td>
+                </div>
+            </div>
+        </div>
+        </div>
+        <div th:if="${infoStat.shenzhen==null}">
+            <td style="" th:text="'&nbsp;—'"></td>
+        </div>
+        <!--shenzhen end-->
+        <!--zhuhai 规则不为空且规则为大于等于 -->
+        <div th:if="${infoStat.zhuhai}!=null">
+        <div th:if="${infoStat.rules}!=null and ${infoStat.rules eq '≥'}">
+            <!--现状值大于标准值  -->
+            <div th:switch="${infoStat.zhuhai ge infoStat.standard }">
+                <div th:if="${infoStat.zhuhai eq 1}">
+                    <td width="66px" style="color: limegreen " th:text="达标" ></td>
+                </div>
+                <div th:if="${infoStat.zhuhai eq 0}">
+                    <td style="color: red " th:text="未达标" ></td>
+                </div>
+                <!-- 现状值不大于标准值且不为0和1 -->
+                <div th:if="${infoStat.zhuhai ne 0 and infoStat.zhuhai ne 1}">
+                    <!--空气质量定制-->
+                    <div th:if="${!#strings.contains(infoStat.secondindex,'空气质量优良天数')}">
+                        <td th:case="true" style="color: limegreen " th:text="${#numbers.formatDecimal(infoStat.zhuhai,1,2)}" ></td>
+                        <td th:case="false" style="color: red " th:text="${#numbers.formatDecimal(infoStat.zhuhai,1,2)}" ></td>
+                    </div>
+                    <div th:if="${#strings.contains(infoStat.secondindex,'空气质量优良天数')}">
+                        <td th:case="true" style="color: limegreen " th:text="${#numbers.formatDecimal(infoStat.zhuhai*100,1,2)}" ></td>
+                        <td th:case="false" style="color: red " th:text="${#numbers.formatDecimal(infoStat.zhuhai*100,1,2)}" ></td>
+                    </div>
+                    <!--空气质量end-->
+                </div>
+            </div>
+        </div>
+        <!-- 规则不为空且规则为小于等于 -->
+        <div th:if="${infoStat.rules}!=null and ${infoStat.rules eq '≤'}">
+            <!-- 现状值大于等于标准值 -->
+            <div th:switch="${infoStat.zhuhai ge infoStat.standard }">
+                <!--不透水面定制-->
+                <div th:if="${!#strings.contains(infoStat.secondindex,'不透水面')}">
+                    <td th:case="true" style="color: red " th:text="${#numbers.formatDecimal(infoStat.zhuhai,1,2)}" ></td>
+                    <td th:case="false" style="color: limegreen " th:text="${#numbers.formatDecimal(infoStat.zhuhai,1,2)}" ></td>
+                </div>
+                <div th:if="${#strings.contains(infoStat.secondindex,'不透水面')}">
+                    <td th:case="true" style="color: red " th:text="${#numbers.formatDecimal(infoStat.zhuhai*100,1,2)}" ></td>
+                    <td th:case="false" style="color: limegreen " th:text="${#numbers.formatDecimal(infoStat.zhuhai*100,1,2)}" ></td>
+                </div>
+                <!--不透水面end-->
+            </div>
+        </div>
+        <!-- 规则为空的情况 -->
+        <div th:if="${infoStat.rules}==null">
+            <div th:switch="${infoStat.zhuhai eq 0}">
+                <td style="color: red" th:case="true" th:text="未达标"></td>
+            </div>
+            <div th:switch="${#strings.contains(infoStat.secondindex,'GDP能耗')}">
+                <div th:if="${!#strings.contains(infoStat.secondindex,'森林覆盖')}">
+                    <td style="color: limegreen" th:case="false" th:text="达标"></td>
+                </div>
+                <div th:if="${#strings.contains(infoStat.secondindex,'森林覆盖')}">
+                <td style="color: red" th:case="false" th:text="${infoStat.zhuhai}"></td>
+                </div>
+                <div th:case="true">
+                    <td style="color: limegreen" th:text="${infoStat.zhuhai}"></td>
+                </div>
+            </div>
+
+        </div>
+        </div>
+        <div th:if="${infoStat.zhuhai}==null">
+            <td style="" th:text="'&nbsp;—'"></td>
+        </div>
+        <!--zhuhai end-->
+        <!--foshan 规则不为空且规则为大于等于 -->
+        <div th:if="${infoStat.foshan}!=null">
+            <div th:if="${infoStat.rules}!=null and ${infoStat.rules eq '≥'}">
+                <!--现状值大于标准值  -->
+                <div th:switch="${infoStat.foshan ge infoStat.standard }">
+                    <div th:if="${infoStat.foshan eq 1}">
+                        <td width="66px" style="color: limegreen " th:text="达标" ></td>
+                    </div>
+                    <div th:if="${infoStat.foshan eq 0}">
+                        <td style="color: red " th:text="未达标" ></td>
+                    </div>
+                    <!-- 现状值不大于标准值且不为0和1 -->
+                    <div th:if="${infoStat.foshan ne 0 and infoStat.foshan ne 1}">
+                        <!--空气质量定制-->
+                        <div th:if="${!#strings.contains(infoStat.secondindex,'空气质量优良天数')}">
+                            <td th:case="true" style="color: limegreen " th:text="${#numbers.formatDecimal(infoStat.foshan,1,2)}" ></td>
+                            <td th:case="false" style="color: red " th:text="${#numbers.formatDecimal(infoStat.foshan,1,2)}" ></td>
+                        </div>
+                        <div th:if="${#strings.contains(infoStat.secondindex,'空气质量优良天数')}">
+                            <td th:case="false" style="color: red " th:text="${#numbers.formatDecimal(infoStat.shenzhen,1,2)}" ></td>
+                            <td th:case="true" style="color: limegreen " th:text="${#numbers.formatDecimal(infoStat.foshan*100,1,2)}" ></td>
+                        </div>
+                        <!--空气质量end-->
+                    </div>
+                </div>
+            </div>
+            <!-- 规则不为空且规则为小于等于 -->
+            <div th:if="${infoStat.rules}!=null and ${infoStat.rules eq '≤'}">
+                <!-- 现状值大于等于标准值 -->
+                <div th:switch="${infoStat.foshan ge infoStat.standard }">
+                    <!--不透水面定制-->
+                    <div th:if="${!#strings.contains(infoStat.secondindex,'不透水面')}">
+                        <td th:case="true" style="color: red " th:text="${#numbers.formatDecimal(infoStat.foshan,1,2)}" ></td>
+                        <td th:case="false" style="color: limegreen " th:text="${#numbers.formatDecimal(infoStat.foshan,1,2)}" ></td>
+                    </div>
+                    <div th:if="${#strings.contains(infoStat.secondindex,'不透水面')}">
+                        <td th:case="true" style="color: red " th:text="${#numbers.formatDecimal(infoStat.foshan*100,1,2)}" ></td>
+                        <td th:case="false" style="color: limegreen " th:text="${#numbers.formatDecimal(infoStat.foshan*100,1,2)}" ></td>
+                    </div>
+                    <!--不透水面end-->
+                </div>
+            </div>
+            <!-- 规则为空的情况 -->
+            <div th:if="${infoStat.rules}==null">
+                <div th:switch="${infoStat.foshan eq 0}">
+                    <td style="color: red" th:case="true" th:text="未达标"></td>
+                </div>
+                <div th:switch="${#strings.contains(infoStat.secondindex,'GDP能耗')}">
+                    <div th:if="${!#strings.contains(infoStat.secondindex,'森林覆盖')}">
+                        <td style="color: limegreen" th:case="false" th:text="达标"></td>
+                    </div>
+                    <div th:if="${#strings.contains(infoStat.secondindex,'森林覆盖')}">
+                        <td style="color: limegreen" th:case="false" th:text="${infoStat.foshan}"></td>
+                    </div>
+                    <div th:case="true">
+                        <td style="color: limegreen" th:text="${infoStat.foshan}"></td>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div th:if="${infoStat.foshan}==null">
+            <td style="" th:text="'&nbsp;—'"></td>
+        </div>
+        <!--foshan end-->
+
+        <!--惠州 规则不为空且规则为大于等于 -->
+        <div th:if="${infoStat.huizhou}!=null">
+            <div th:if="${infoStat.rules}!=null and ${infoStat.rules eq '≥'}">
+                <!--现状值大于标准值  -->
+                <div th:switch="${infoStat.huizhou ge infoStat.standard }">
+                    <div th:if="${infoStat.huizhou eq 1}">
+                        <td width="66px" style="color: limegreen " th:text="达标" ></td>
+                    </div>
+                    <div th:if="${infoStat.huizhou eq 0}">
+                        <td style="color: red " th:text="未达标" ></td>
+                    </div>
+                    <!-- 现状值不大于标准值且不为0和1 -->
+                    <div th:if="${infoStat.huizhou ne 0 and infoStat.huizhou ne 1}">
+                        <!--空气质量定制-->
+                        <div th:if="${!#strings.contains(infoStat.secondindex,'空气质量优良天数')}">
+                            <td th:case="true" style="color: limegreen " th:text="${#numbers.formatDecimal(infoStat.huizhou,1,2)}" ></td>
+                            <td th:case="false" style="color: red " th:text="${#numbers.formatDecimal(infoStat.huizhou,1,2)}" ></td>
+                        </div>
+                        <div th:if="${#strings.contains(infoStat.secondindex,'空气质量优良天数')}">
+                            <td style="color: limegreen " th:text="${#numbers.formatDecimal(infoStat.huizhou*100,1,2)}" ></td>
+                        </div>
+                        <!--空气质量end-->
+                    </div>
+                </div>
+            </div>
+            <!-- 规则不为空且规则为小于等于 -->
+            <div th:if="${infoStat.rules}!=null and ${infoStat.rules eq '≤'}">
+                <!-- 现状值大于等于标准值 -->
+                <div th:switch="${infoStat.huizhou ge infoStat.standard }">
+                    <!--不透水面定制-->
+                    <div th:if="${!#strings.contains(infoStat.secondindex,'不透水面')}">
+                        <td th:case="true" style="color: red " th:text="${#numbers.formatDecimal(infoStat.huizhou,1,2)}" ></td>
+                        <td th:case="false" style="color: limegreen " th:text="${#numbers.formatDecimal(infoStat.huizhou,1,2)}" ></td>
+                    </div>
+                    <div th:if="${#strings.contains(infoStat.secondindex,'不透水面')}">
+                        <td th:case="true" style="color: red " th:text="${#numbers.formatDecimal(infoStat.huizhou*100,1,2)}" ></td>
+                        <td th:case="false" style="color: limegreen " th:text="${#numbers.formatDecimal(infoStat.huizhou*100,1,2)}" ></td>
+                    </div>
+                    <!--不透水面end-->
+                </div>
+            </div>
+            <!-- 规则为空的情况 -->
+            <div th:if="${infoStat.rules}==null">
+                <div th:switch="${infoStat.huizhou eq 0}">
+                    <td style="color: red" th:case="true" th:text="未达标"></td>
+                </div>
+                <div th:switch="${#strings.contains(infoStat.secondindex,'GDP能耗')}">
+                    <div th:if="${!#strings.contains(infoStat.secondindex,'森林覆盖')}">
+                        <td style="color: limegreen" th:case="false" th:text="达标"></td>
+                    </div>
+                    <div th:if="${#strings.contains(infoStat.secondindex,'森林覆盖')}">
+                        <td style="color: limegreen" th:case="false" th:text="${infoStat.huizhou}"></td>
+                    </div>
+                    <div th:case="true">
+                        <td style="color: red" th:text="${infoStat.huizhou}"></td>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div th:if="${infoStat.huizhou}==null">
+            <td style="" th:text="'&nbsp;—'"></td>
+        </div>
+        <!--huizhou end-->
+
+        <!--dongguan 规则不为空且规则为大于等于 -->
+        <div th:if="${infoStat.dongguan}!=null">
+            <div th:if="${infoStat.rules}!=null and ${infoStat.rules eq '≥'}">
+                <!--现状值大于标准值  -->
+                <div th:switch="${infoStat.dongguan ge infoStat.standard }">
+                    <div th:if="${infoStat.dongguan eq 1}">
+                        <td width="66px" style="color: limegreen " th:text="达标" ></td>
+                    </div>
+                    <div th:if="${infoStat.dongguan eq 0}">
+                        <td style="color: red " th:text="未达标" ></td>
+                    </div>
+                    <!-- 现状值不大于标准值且不为0和1 -->
+                    <div th:if="${infoStat.dongguan ne 0 and infoStat.dongguan ne 1}">
+                        <!--空气质量定制-->
+                        <div th:if="${!#strings.contains(infoStat.secondindex,'空气质量优良天数')}">
+                            <td th:case="true" style="color: limegreen " th:text="${#numbers.formatDecimal(infoStat.dongguan,1,2)}" ></td>
+                            <td th:case="false" style="color: red " th:text="${#numbers.formatDecimal(infoStat.dongguan,1,2)}" ></td>
+                        </div>
+                        <div th:if="${#strings.contains(infoStat.secondindex,'空气质量优良天数')}">
+                            <td th:case="false" style="color: red " th:text="${#numbers.formatDecimal(infoStat.dongguan*100,1,2)}" ></td>
+                            <td th:case="true" style="color: limegreen " th:text="${#numbers.formatDecimal(infoStat.dongguan*100,1,2)}" ></td>
+                        </div>
+                        <!--空气质量end-->
+                    </div>
+                </div>
+            </div>
+            <!-- 规则不为空且规则为小于等于 -->
+            <div th:if="${infoStat.rules}!=null and ${infoStat.rules eq '≤'}">
+                <!-- 现状值大于等于标准值 -->
+                <div th:switch="${infoStat.dongguan ge infoStat.standard }">
+                    <!--不透水面定制-->
+                    <div th:if="${!#strings.contains(infoStat.secondindex,'不透水面')}">
+                        <td th:case="true" style="color: red " th:text="${#numbers.formatDecimal(infoStat.dongguan,1,2)}" ></td>
+                        <td th:case="false" style="color: limegreen " th:text="${#numbers.formatDecimal(infoStat.dongguan,1,2)}" ></td>
+                    </div>
+                    <div th:if="${#strings.contains(infoStat.secondindex,'不透水面')}">
+                        <td th:case="true" style="color: red " th:text="${#numbers.formatDecimal(infoStat.dongguan*100,1,2)}" ></td>
+                        <td th:case="false" style="color: limegreen " th:text="${#numbers.formatDecimal(infoStat.dongguan*100,1,2)}" ></td>
+                    </div>
+                    <!--不透水面end-->
+                </div>
+            </div>
+            <!-- 规则为空的情况 -->
+            <div th:if="${infoStat.rules}==null">
+                <div th:switch="${infoStat.dongguan eq 0}">
+                    <td style="color: red" th:case="true" th:text="未达标"></td>
+                </div>
+                <div th:switch="${#strings.contains(infoStat.secondindex,'GDP能耗')}">
+                    <div th:if="${!#strings.contains(infoStat.secondindex,'森林覆盖')}">
+                        <td style="color: limegreen" th:case="false" th:text="达标"></td>
+                    </div>
+                    <div th:if="${#strings.contains(infoStat.secondindex,'森林覆盖')}">
+                        <td style="color: red" th:case="false" th:text="${infoStat.dongguan}"></td>
+                    </div>
+                    <div th:case="true">
+                        <td style="color: limegreen" th:text="${infoStat.dongguan}"></td>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div th:if="${infoStat.dongguan}==null">
+            <td style="" th:text="'&nbsp;—'"></td>
+        </div>
+        <!--dongguan end-->
+
+        <!--zhongshan 规则不为空且规则为大于等于 -->
+        <div th:if="${infoStat.zhongshan}!=null">
+            <div th:if="${infoStat.rules}!=null and ${infoStat.rules eq '≥'}">
+                <!--现状值大于标准值  -->
+                <div th:switch="${infoStat.zhongshan ge infoStat.standard }">
+                    <div th:if="${infoStat.zhongshan eq 1}">
+                        <td width="66px" style="color: limegreen " th:text="达标" ></td>
+                    </div>
+                    <div th:if="${infoStat.zhongshan eq 0}">
+                        <td style="color: red " th:text="未达标" ></td>
+                    </div>
+                    <!-- 现状值不大于标准值且不为0和1 -->
+                    <div th:if="${infoStat.zhongshan ne 0 and infoStat.zhongshan ne 1}">
+                        <!--空气质量定制-->
+                        <div th:if="${!#strings.contains(infoStat.secondindex,'空气质量优良天数')}">
+                            <td th:case="true" style="color: limegreen " th:text="${#numbers.formatDecimal(infoStat.zhongshan,1,2)}" ></td>
+                            <td th:case="false" style="color: red " th:text="${#numbers.formatDecimal(infoStat.zhongshan,1,2)}" ></td>
+                        </div>
+                        <div th:if="${#strings.contains(infoStat.secondindex,'空气质量优良天数')}">
+                            <td th:case="false" style="color: red " th:text="${#numbers.formatDecimal(infoStat.zhongshan*100,1,2)}" ></td>
+                            <td th:case="true" style="color: limegreen " th:text="${#numbers.formatDecimal(infoStat.zhongshan*100,1,2)}" ></td>
+                        </div>
+                        <!--空气质量end-->
+                    </div>
+                </div>
+            </div>
+            <!-- 规则不为空且规则为小于等于 -->
+            <div th:if="${infoStat.rules}!=null and ${infoStat.rules eq '≤'}">
+                <!-- 现状值大于等于标准值 -->
+                <div th:switch="${infoStat.zhongshan ge infoStat.standard }">
+                    <!--不透水面定制-->
+                    <div th:if="${!#strings.contains(infoStat.secondindex,'不透水面')}">
+                        <td th:case="true" style="color: red " th:text="${#numbers.formatDecimal(infoStat.zhongshan,1,2)}" ></td>
+                        <td th:case="false" style="color: limegreen " th:text="${#numbers.formatDecimal(infoStat.zhongshan,1,2)}" ></td>
+                    </div>
+                    <div th:if="${#strings.contains(infoStat.secondindex,'不透水面')}">
+                        <td th:case="true" style="color: red " th:text="${#numbers.formatDecimal(infoStat.zhongshan*100,1,2)}" ></td>
+                        <td th:case="false" style="color: limegreen " th:text="${#numbers.formatDecimal(infoStat.zhongshan*100,1,2)}" ></td>
+                    </div>
+                    <!--不透水面end-->
+                </div>
+            </div>
+            <!-- 规则为空的情况 -->
+            <div th:if="${infoStat.rules}==null">
+                <div th:switch="${infoStat.zhongshan eq 0}">
+                    <td style="color: red" th:case="true" th:text="未达标"></td>
+                </div>
+                <div th:switch="${#strings.contains(infoStat.secondindex,'GDP能耗')}">
+                    <div th:if="${!#strings.contains(infoStat.secondindex,'森林覆盖')}">
+                        <td style="color: limegreen" th:case="false" th:text="达标"></td>
+                    </div>
+                    <div th:if="${#strings.contains(infoStat.secondindex,'森林覆盖')}">
+                        <td style="color: limegreen" th:case="false" th:text="${infoStat.zhongshan}"></td>
+                    </div>
+                    <div th:case="true">
+                        <td style="color: red" th:text="${infoStat.zhongshan}"></td>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div th:if="${infoStat.zhongshan}==null">
+            <td style="" th:text="'&nbsp;—'"></td>
+        </div>
+        <!--zhongshan end-->
+        <!--jiangmen 规则不为空且规则为大于等于 -->
+        <div th:if="${infoStat.jiangmen}!=null">
+            <div th:if="${infoStat.rules}!=null and ${infoStat.rules eq '≥'}">
+                <!--现状值大于标准值  -->
+                <div th:switch="${infoStat.jiangmen ge infoStat.standard }">
+                    <div th:if="${infoStat.jiangmen eq 1}">
+                        <td width="66px" style="color: limegreen " th:text="达标" ></td>
+                    </div>
+                    <div th:if="${infoStat.jiangmen eq 0}">
+                        <td style="color: red " th:text="未达标" ></td>
+                    </div>
+                    <!-- 现状值不大于标准值且不为0和1 -->
+                    <div th:if="${infoStat.jiangmen ne 0 and infoStat.jiangmen ne 1}">
+                        <!--空气质量定制-->
+                        <div th:if="${!#strings.contains(infoStat.secondindex,'空气质量优良天数')}">
+                            <td th:case="true" style="color: limegreen " th:text="${#numbers.formatDecimal(infoStat.jiangmen,1,2)}" ></td>
+                            <td th:case="false" style="color: red " th:text="${#numbers.formatDecimal(infoStat.jiangmen,1,2)}" ></td>
+                        </div>
+                        <div th:if="${#strings.contains(infoStat.secondindex,'空气质量优良天数')}">
+                            <td th:case="false" style="color: red " th:text="${#numbers.formatDecimal(infoStat.jiangmen*100,1,2)}" ></td>
+                            <td th:case="true" style="color: limegreen " th:text="${#numbers.formatDecimal(infoStat.jiangmen*100,1,2)}" ></td>
+                        </div>
+                        <!--空气质量end-->
+                    </div>
+                </div>
+            </div>
+            <!-- 规则不为空且规则为小于等于 -->
+            <div th:if="${infoStat.rules}!=null and ${infoStat.rules eq '≤'}">
+                <!-- 现状值大于等于标准值 -->
+                <div th:switch="${infoStat.jiangmen ge infoStat.standard }">
+                    <!--不透水面定制-->
+                    <div th:if="${!#strings.contains(infoStat.secondindex,'不透水面')}">
+                        <td th:case="true" style="color: red " th:text="${#numbers.formatDecimal(infoStat.jiangmen,1,2)}" ></td>
+                        <td th:case="false" style="color: limegreen " th:text="${#numbers.formatDecimal(infoStat.jiangmen,1,2)}" ></td>
+                    </div>
+                    <div th:if="${#strings.contains(infoStat.secondindex,'不透水面')}">
+                        <td th:case="true" style="color: red " th:text="${#numbers.formatDecimal(infoStat.jiangmen*100,1,2)}" ></td>
+                        <td th:case="false" style="color: limegreen " th:text="${#numbers.formatDecimal(infoStat.jiangmen*100,1,2)}" ></td>
+                    </div>
+                    <!--不透水面end-->
+                </div>
+            </div>
+            <!-- 规则为空的情况 -->
+            <div th:if="${infoStat.rules}==null">
+                <div th:switch="${infoStat.jiangmen eq 0}">
+                    <td style="color: red" th:case="true" th:text="未达标"></td>
+                </div>
+                <div th:switch="${#strings.contains(infoStat.secondindex,'GDP能耗')}">
+                    <div th:if="${!#strings.contains(infoStat.secondindex,'森林覆盖')}">
+                        <td style="color: limegreen" th:case="false" th:text="达标"></td>
+                    </div>
+                    <div th:if="${#strings.contains(infoStat.secondindex,'森林覆盖')}">
+                        <td style="color: limegreen" th:case="false" th:text="${infoStat.jiangmen}"></td>
+                    </div>
+                    <div th:case="true">
+                        <td style="color: limegreen" th:text="${infoStat.jiangmen}"></td>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div th:if="${infoStat.jiangmen}==null">
+            <td style="" th:text="'&nbsp;—'"></td>
+        </div>
+        <!--jiangmen end-->
+        <!--zhaoqing 规则不为空且规则为大于等于 -->
+        <div th:if="${infoStat.zhaoqing}!=null">
+            <div th:if="${infoStat.rules}!=null and ${infoStat.rules eq '≥'}">
+                <!--现状值大于标准值  -->
+                <div th:switch="${infoStat.zhaoqing ge infoStat.standard }">
+                    <div th:if="${infoStat.zhaoqing eq 1}">
+                        <td width="66px" style="color: limegreen " th:text="达标" ></td>
+                    </div>
+                    <div th:if="${infoStat.zhaoqing eq 0}">
+                        <td style="color: red " th:text="未达标" ></td>
+                    </div>
+                    <!-- 现状值不大于标准值且不为0和1 -->
+                    <div th:if="${infoStat.zhaoqing ne 0 and infoStat.zhaoqing ne 1}">
+                        <!--空气质量定制-->
+                        <div th:if="${!#strings.contains(infoStat.secondindex,'空气质量优良天数')}">
+                            <td th:case="true" style="color: limegreen " th:text="${#numbers.formatDecimal(infoStat.zhaoqing,1,2)}" ></td>
+                            <td th:case="false" style="color: red " th:text="${#numbers.formatDecimal(infoStat.zhaoqing,1,2)}" ></td>
+                        </div>
+                        <div th:if="${#strings.contains(infoStat.secondindex,'空气质量优良天数')}">
+                            <td th:case="false" style="color: red " th:text="${#numbers.formatDecimal(infoStat.zhaoqing*100,1,2)}" ></td>
+                            <td th:case="true" style="color: limegreen " th:text="${#numbers.formatDecimal(infoStat.zhaoqing*100,1,2)}" ></td>
+                        </div>
+                        <!--空气质量end-->
+                    </div>
+                </div>
+            </div>
+            <!-- 规则不为空且规则为小于等于 -->
+            <div th:if="${infoStat.rules}!=null and ${infoStat.rules eq '≤'}">
+                <!-- 现状值大于等于标准值 -->
+                <div th:switch="${infoStat.zhaoqing ge infoStat.standard }">
+                    <!--不透水面定制-->
+                    <div th:if="${!#strings.contains(infoStat.secondindex,'不透水面')}">
+                        <td th:case="true" style="color: red " th:text="${#numbers.formatDecimal(infoStat.zhaoqing,1,2)}" ></td>
+                        <td th:case="false" style="color: limegreen " th:text="${#numbers.formatDecimal(infoStat.zhaoqing,1,2)}" ></td>
+                    </div>
+                    <div th:if="${#strings.contains(infoStat.secondindex,'不透水面')}">
+                        <td th:case="true" style="color: red " th:text="${#numbers.formatDecimal(infoStat.zhaoqing*100,1,2)}" ></td>
+                        <td th:case="false" style="color: limegreen " th:text="${#numbers.formatDecimal(infoStat.zhaoqing*100,1,2)}" ></td>
+                    </div>
+                    <!--不透水面end-->
+                </div>
+            </div>
+            <!-- 规则为空的情况 -->
+            <div th:if="${infoStat.rules}==null">
+                <div th:switch="${infoStat.zhaoqing eq 0}">
+                    <td style="color: red" th:case="true" th:text="未达标"></td>
+                </div>
+                <div th:switch="${#strings.contains(infoStat.secondindex,'GDP能耗')}">
+                    <div th:if="${!#strings.contains(infoStat.secondindex,'森林覆盖')}">
+                        <td style="color: limegreen" th:case="false" th:text="达标"></td>
+                    </div>
+                    <div th:if="${#strings.contains(infoStat.secondindex,'森林覆盖')}">
+                        <td style="color: limegreen" th:case="false" th:text="${infoStat.zhaoqing}"></td>
+                    </div>
+                    <div th:case="true">
+                        <td style="color: limegreen" th:text="${infoStat.zhaoqing}"></td>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div th:if="${infoStat.zhaoqing}==null">
+            <td style="" th:text="'&nbsp;—'"></td>
+        </div>
+        <!--zhaoqing end-->
+
+
+    </tr>
+    </table>
+    </div>
+    
+    </body>
+</html>

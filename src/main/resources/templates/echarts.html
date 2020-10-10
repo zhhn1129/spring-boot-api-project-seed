@@ -9,8 +9,22 @@
 </head>
 <body>
 <div th:replace="nav :: myfooter"  ></div>
+<div class="container">
+    <div class="col-md-offset-4">
+        <h2 >部分指标柱状图示例</h2>
+    </div>
+    <br/>
+    <div class="row">
+    <div class="col-md-6">
+        <div id="main" style="width: 500px;height:300px"></div>
+    </div>
+    <div class="col-md-6">
+        <div id="main1" style="width: 500px;height:300px"></div>
+    </div>
+</div>
 
-<div id="main" style="width: 1000px;height:600px;"></div>
+
+</div>
 <script type="text/javascript">
     $(document).ready(function(){
         // 基于准备好的dom，初始化echarts实例
@@ -29,38 +43,40 @@
             success : function(results) {
                 //请求成功时执行该函数内容，result即为服务器返回的json对象
                 if (results) {
-                	/*<![CDATA[*/
-                	for(var i=0;i < results.length;i++){
-                		/*]]>*/
+                    /*<![CDATA[
+                    for(var i=0;i < results.length;i++){
+                        /*]]>
                         names.push(results[i].secondindex);
-                        values.push(results[i].currentvalue);
+                        values.push(results[i].data2019);
                         arr.push(results[i].data2018);
-                    }
+                    }*/
                     myChart.hideLoading();    //隐藏加载动画
                     myChart.setOption({        //加载数据图表
                         title:{
-                        	text:'百分比类型指标',
-                        	left:150
-                        	
+                            //text:'不透水面比例',
+                            left:150
                         },
-                    	legend: {},
+                        legend: {},
                         tooltip: {},
-                        
+
                         // 声明一个 X 轴，类目轴（category）。默认情况下，类目轴对应到 dataset 第一列。
                         xAxis: {type:'category',
-                        		data:names,
-                        		axisLabel:{
-                        			interval:0,rotate:10
-                        		}	
+                            data:["广州","深圳","珠海","佛山","惠州","东莞","中山","江门","肇庆"],
+                            axisLabel:{
+                                interval:0,rotate:0
+                            }
                         },
                         // 声明一个 Y 轴，数值轴。
                         yAxis: {type:'value'},
                         // 声明多个 bar 系列，默认情况下，每个系列会自动对应到 dataset 的每一列。
                         series: [
-                        	{name:'2018',type: 'bar',data:arr},
-                        	{name:'2019',type: 'bar',data:values}
+                            {name:'不透水面比例',type: 'bar',color:'darkblue',
+                                data:[results[0].guangzhou,results[0].shenzhen,results[0].zhuhai,
+                                    results[0].foshan,results[0].huizhou,results[0].dongguan,
+                                    results[0].zhongshan,results[0].jiangmen,results[0].zhaoqing,]},
+                            /*{name:'2019',type: 'bar',data:values}*/
                         ]
-                    	
+
                     });
                 }
             },
@@ -68,6 +84,54 @@
                 //请求失败时执行该函数
                 alert("图表请求数据失败!");
                 myChart.hideLoading();
+            }
+        });//end ajax
+
+        // 基于准备好的dom，初始化echarts实例
+        var myChart1 = echarts.init(document.getElementById('main1'));
+        //数据加载完之前先显示一段简单的loading动画
+        myChart1.showLoading();
+        $.ajax({
+            type : "post",
+            async : true,            //异步请求（同步请求将会锁住浏览器，用户其他操作必须等待请求完成才可以执行）
+            url : "/EchartsShow",    //请求发送到dataActiont处
+            data : {},
+            dataType : "json",        //返回数据形式为json
+            success : function(results) {
+                //请求成功时执行该函数内容，result即为服务器返回的json对象
+                if (results) {
+                    myChart1.hideLoading();    //隐藏加载动画
+                    myChart1.setOption({        //加载数据图表
+                        title:{
+                            //text:'不透水面比例',
+                            left:150
+                        },
+                        legend: {},
+                        tooltip: {},
+
+                        // 声明一个 X 轴，类目轴（category）。默认情况下，类目轴对应到 dataset 第一列。
+                        xAxis: {type:'category',
+                            data:["广州","深圳","珠海","佛山","惠州","东莞","中山","江门","肇庆"],
+                            axisLabel:{
+                                interval:0,rotate:0
+                            }
+                        },
+                        // 声明一个 Y 轴，数值轴。
+                        yAxis: {type:'value'},
+                        // 声明多个 bar 系列，默认情况下，每个系列会自动对应到 dataset 的每一列。
+                        series: [
+                            {name:'不透水面比例',type: 'bar',color:'green',
+                                data:[results[0].guangzhou,results[0].shenzhen,results[0].zhuhai,
+                                    results[0].foshan,results[0].huizhou,results[0].dongguan,
+                                    results[0].zhongshan,results[0].jiangmen,results[0].zhaoqing,]},
+                        ]
+                    });
+                }
+            },
+            error : function(errorMsg) {
+                //请求失败时执行该函数
+                alert("图表请求数据失败!");
+                myChart1.hideLoading();
             }
         });//end ajax
     });

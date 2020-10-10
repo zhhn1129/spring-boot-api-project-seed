@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.company.project.dao.Assessmentresult2019Mapper">
+  <resultMap id="BaseResultMap" type="com.company.project.model.Assessmentresult2019">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="indexId" jdbcType="NVARCHAR" property="indexid" />
+    <result column="secondIndex" jdbcType="NVARCHAR" property="secondindex" />
+    <result column="rules" jdbcType="NVARCHAR" property="rules" />
+    <result column="unit" jdbcType="NVARCHAR" property="unit" />
+    <result column="standard" jdbcType="REAL" property="standard" />
+    <result column="guangzhou" jdbcType="REAL" property="guangzhou" />
+    <result column="shenzhen" jdbcType="REAL" property="shenzhen" />
+    <result column="zhuhai" jdbcType="REAL" property="zhuhai" />
+    <result column="foshan" jdbcType="REAL" property="foshan" />
+    <result column="huizhou" jdbcType="REAL" property="huizhou" />
+    <result column="dongguan" jdbcType="REAL" property="dongguan" />
+    <result column="zhongshan" jdbcType="REAL" property="zhongshan" />
+    <result column="jiangmen" jdbcType="REAL" property="jiangmen" />
+    <result column="zhaoqing" jdbcType="REAL" property="zhaoqing" />
+    <result column="comment" jdbcType="NVARCHAR" property="comment" />
+  </resultMap>
+</mapper>

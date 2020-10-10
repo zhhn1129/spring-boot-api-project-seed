@@ -5,16 +5,12 @@
     <!--
       WARNING - @mbg.generated
     -->
-    <id column="Id" jdbcType="INTEGER" property="id" />
     <result column="psr" jdbcType="NVARCHAR" property="psr" />
     <result column="firstIndex" jdbcType="NVARCHAR" property="firstindex" />
+    <result column="id" jdbcType="INTEGER" property="id" />
     <result column="secondIndex" jdbcType="NVARCHAR" property="secondindex" />
-    <result column="ecologicalFactor" jdbcType="NVARCHAR" property="ecologicalfactor" />
     <result column="unit" jdbcType="NVARCHAR" property="unit" />
     <result column="standard" jdbcType="NVARCHAR" property="standard" />
-    <result column="currentValue" jdbcType="NVARCHAR" property="currentvalue" />
-    <result column="finishTime" jdbcType="DATE" property="finishtime" />
-    <result column="comment" jdbcType="NVARCHAR" property="comment" />
-    <result column="citation" jdbcType="VARCHAR" property="citation" />
+    <result column="pkId" jdbcType="INTEGER" property="pkid" />
   </resultMap>
 </mapper>

@@ -24,8 +24,8 @@ public class Mulihe {
     /**
      * 现状值，如果没有具体值用1/0表示是否
      */
-    @Column(name = "currentValue")
-    private Float currentvalue;
+    @Column(name = "data2019")
+    private Float data2019;
 
     private String rules;
 
@@ -35,7 +35,7 @@ public class Mulihe {
 
     private String comment;
 
-    @Column(name = "data_2018")
+    @Column(name = "data2018")
     private Float data2018;
 
     /**
@@ -127,17 +127,17 @@ public class Mulihe {
      *
      * @return currentValue - 现状值，如果没有具体值用1/0表示是否
      */
-    public Float getCurrentvalue() {
-        return currentvalue;
+    public Float getData2019() {
+        return data2019;
     }
 
     /**
      * 设置现状值，如果没有具体值用1/0表示是否
      *
-     * @param currentvalue 现状值，如果没有具体值用1/0表示是否
+     * @param data2019 现状值，如果没有具体值用1/0表示是否
      */
-    public void setCurrentvalue(Float currentvalue) {
-        this.currentvalue = currentvalue;
+    public void setData2019(Float data2019) {
+        this.data2019 = data2019;
     }
 
     /**
