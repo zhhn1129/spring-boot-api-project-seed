@@ -15,15 +15,29 @@
     </div>
     <br/>
     <div class="row">
-    <div class="col-md-6">
-        <div id="main" style="width: 500px;height:300px"></div>
+        <div class="col-md-6">
+            <div id="main" style="width: 500px;height:300px"></div>
+        </div>
+        <div class="col-md-6">
+            <div id="main1" style="width: 500px;height:300px"></div>
+        </div>
     </div>
-    <div class="col-md-6">
-        <div id="main1" style="width: 500px;height:300px"></div>
+    <div class="row">
+        <div class="col-md-6">
+            <div id="main2" style="width: 500px;height:300px"></div>
+        </div>
+        <div class="col-md-6">
+            <div id="main3" style="width: 500px;height:300px"></div>
+        </div>
     </div>
-</div>
-
-
+    <div class="row">
+        <div class="col-md-6">
+            <div id="main4" style="width: 500px;height:300px"></div>
+        </div>
+        <div class="col-md-6">
+            <div id="main5" style="width: 500px;height:300px"></div>
+        </div>
+    </div>
 </div>
 <script type="text/javascript">
     $(document).ready(function(){
@@ -89,8 +103,16 @@
 
         // 基于准备好的dom，初始化echarts实例
         var myChart1 = echarts.init(document.getElementById('main1'));
+        var myChart2 = echarts.init(document.getElementById('main2'));
+        var myChart3 = echarts.init(document.getElementById('main3'));
+        var myChart4 = echarts.init(document.getElementById('main4'));
+        var myChart5 = echarts.init(document.getElementById('main5'));
         //数据加载完之前先显示一段简单的loading动画
         myChart1.showLoading();
+        myChart2.showLoading();
+        myChart3.showLoading();
+        myChart4.showLoading();
+        myChart5.showLoading();
         $.ajax({
             type : "post",
             async : true,            //异步请求（同步请求将会锁住浏览器，用户其他操作必须等待请求完成才可以执行）
@@ -101,9 +123,105 @@
                 //请求成功时执行该函数内容，result即为服务器返回的json对象
                 if (results) {
                     myChart1.hideLoading();    //隐藏加载动画
-                    myChart1.setOption({        //加载数据图表
+                    myChart2.hideLoading();
+                    myChart3.hideLoading();
+                    myChart4.hideLoading();
+                    myChart5.hideLoading();
+                    myChart1.setOption({
                         title:{
                             //text:'不透水面比例',
+                            left:150
+                        },
+                        legend: {},
+                        tooltip: {},
+                        // 声明一个 X 轴，类目轴（category）。默认情况下，类目轴对应到 dataset 第一列。
+                        xAxis: {type:'category',
+                            data:["广州","深圳","珠海","佛山","惠州","东莞","中山","江门","肇庆"],
+                            axisLabel:{
+                                interval:0,rotate:0
+                            }
+                        },
+                        // 声明一个 Y 轴，数值轴。
+                        yAxis: {type:'value'},
+                        // 声明多个 bar 系列，默认情况下，每个系列会自动对应到 dataset 的每一列。
+                        series: [
+                            {name:'单位GDP',type: 'bar',color:'green',
+                                data:[results[1].guangzhou,results[1].shenzhen,results[1].zhuhai,
+                                    results[1].foshan,results[1].huizhou,results[1].dongguan,
+                                    results[1].zhongshan,results[1].jiangmen,results[1].zhaoqing]},
+                        ]
+                    });
+                    myChart2.setOption({
+                        title:{
+                            left:150
+                        },
+                        legend: {},
+                        tooltip: {},
+                        // 声明一个 X 轴，类目轴（category）。默认情况下，类目轴对应到 dataset 第一列。
+                        xAxis: {type:'category',
+                            data:["广州","深圳","珠海","佛山","惠州","东莞","中山","江门","肇庆"],
+                            axisLabel:{
+                                interval:0,rotate:0
+                            }
+                        },
+                        // 声明一个 Y 轴，数值轴。
+                        yAxis: {type:'value'},
+                        // 声明多个 bar 系列，默认情况下，每个系列会自动对应到 dataset 的每一列。
+                        series: [
+                            {name:'单位地区生产',type: 'bar',color:'silver',
+                                data:[results[2].guangzhou,results[2].shenzhen,results[2].zhuhai,
+                                    results[2].foshan,results[2].huizhou,results[2].dongguan,
+                                    results[2].zhongshan,results[2].jiangmen,results[2].zhaoqing]},
+                        ]
+                    });
+                    myChart3.setOption({
+                        title:{
+                            left:150
+                        },
+                        legend: {},
+                        tooltip: {},
+                        // 声明一个 X 轴，类目轴（category）。默认情况下，类目轴对应到 dataset 第一列。
+                        xAxis: {type:'category',
+                            data:["广州","深圳","珠海","佛山","惠州","东莞","中山","江门","肇庆"],
+                            axisLabel:{
+                                interval:0,rotate:0
+                            }
+                        },
+                        // 声明一个 Y 轴，数值轴。
+                        yAxis: {type:'value'},
+                        // 声明多个 bar 系列，默认情况下，每个系列会自动对应到 dataset 的每一列。
+                        series: [
+                            {name:'景观多样',type: 'bar',color:'grey',
+                                data:[results[3].guangzhou,results[3].shenzhen,results[3].zhuhai,
+                                    results[3].foshan,results[3].huizhou,results[3].dongguan,
+                                    results[3].zhongshan,results[3].jiangmen,results[3].zhaoqing]},
+                        ]
+                    });
+                    myChart4.setOption({        //加载数据图表
+                        title:{
+                            left:150
+                        },
+                        legend: {},
+                        tooltip: {},
+                        // 声明一个 X 轴，类目轴（category）。默认情况下，类目轴对应到 dataset 第一列。
+                        xAxis: {type:'category',
+                            data:["广州","深圳","珠海","佛山","惠州","东莞","中山","江门","肇庆"],
+                            axisLabel:{
+                                interval:0,rotate:0
+                            }
+                        },
+                        // 声明一个 Y 轴，数值轴。
+                        yAxis: {type:'value'},
+                        // 声明多个 bar 系列，默认情况下，每个系列会自动对应到 dataset 的每一列。
+                        series: [
+                            {name:'森林覆盖率',type: 'bar',color:'orange',
+                                data:[results[4].guangzhou,results[4].shenzhen,results[4].zhuhai,
+                                    results[4].foshan,results[4].huizhou,results[4].dongguan,
+                                    results[4].zhongshan,results[4].jiangmen,results[4].zhaoqing]},
+                        ]
+                    });
+                    myChart5.setOption({        //加载数据图表
+                        title:{
                             left:150
                         },
                         legend: {},
@@ -120,10 +238,10 @@
                         yAxis: {type:'value'},
                         // 声明多个 bar 系列，默认情况下，每个系列会自动对应到 dataset 的每一列。
                         series: [
-                            {name:'不透水面比例',type: 'bar',color:'green',
-                                data:[results[0].guangzhou,results[0].shenzhen,results[0].zhuhai,
-                                    results[0].foshan,results[0].huizhou,results[0].dongguan,
-                                    results[0].zhongshan,results[0].jiangmen,results[0].zhaoqing,]},
+                            {name:'空气质量',type: 'bar',color:'marine',
+                                data:[results[5].guangzhou,results[5].shenzhen,results[5].zhuhai,
+                                    results[5].foshan,results[5].huizhou,results[5].dongguan,
+                                    results[5].zhongshan,results[5].jiangmen,results[5].zhaoqing]},
                         ]
                     });
                 }
@@ -132,6 +250,10 @@
                 //请求失败时执行该函数
                 alert("图表请求数据失败!");
                 myChart1.hideLoading();
+                myChart2.hideLoading();
+                myChart3.hideLoading();
+                myChart4.hideLoading();
+                myChart5.hideLoading();
             }
         });//end ajax
     });

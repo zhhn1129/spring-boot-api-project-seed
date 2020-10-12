@@ -60,7 +60,13 @@ public class DisplayController {
     @ResponseBody
     public List<Assessmentresult2019> findById(Model model) {
         Condition c=new Condition(Assessmentresult2019.class);
-        c.and().andLike("secondindex", "不透水面%");
+        c.or().orLike("secondindex", "不透水面%")
+                .orLike("secondindex","单位GDP%")
+                .orLike("secondindex","单位地区生产%")
+                .orLike("secondindex","景观多样%")
+                .orLike("secondindex","森林覆盖%")
+                .orLike("secondindex","空气质量%");
+        c.orderBy("id");
         List<Assessmentresult2019> list = (ArrayList<Assessmentresult2019>) assessmentresult2019Service.findByCondition(c);
         return list;
     }
@@ -68,6 +74,11 @@ public class DisplayController {
     @RequestMapping("pdca/plan")
     public String plan(Model m) {
         return "pdca/plan";
+    }
+
+    @RequestMapping("/")
+    public String index(Model m) {
+        return "index";
     }
 
     @RequestMapping("pdca/doAndCheck")
