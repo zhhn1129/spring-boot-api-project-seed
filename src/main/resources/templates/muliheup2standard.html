@@ -8,7 +8,7 @@
 <body>
 <div th:replace="nav :: myfooter"></div>
 
-<h2 align="center">惠州市木沥河生态系统管理指标体系达标指标</h2>
+<h2 align="center">惠州市木沥河生态系统管理指标体系2019年评估达标指标</h2>
 <br/>
 <div class="container">
     <div class="align-items-center">
@@ -16,20 +16,20 @@
         <div class="dataTables_wrapper no-footer">
             <table class="table table-hover">
                 <tr>
-                    <th>序号</th>
-                    <th>类别</th>
-                    <th>一级指标</th>
-                    <th width="180px">二级指标</th>
-                    <th width="70px">现状值
+                    <th width="5%">序号</th>
+                    <th width="10%">类别</th>
+                    <th width="10%">一级指标</th>
+                    <th width="25%">二级指标</th>
+                    <th width="15%">2019年评估结果
                         <a onmouseover="showtip()" href="#" class="tooltip-show" data-toggle="tooltip"
                            title="现状值达标显示为&lt;span style='color:limegreen'&gt;绿色&lt;/span&gt;，不达标为&lt;span style='color:red'&gt;红色&lt;/span&gt;">
                             <sup>?</sup>
                         </a>
                     </th>
-                    <th>标准值</th>
-                    <th>单位</th>
-                    <th>发布单位</th>
-                    <th>备注</th>
+                    <th width="5%">标准值</th>
+                    <th width="5%">单位</th>
+                    <!--<th>发布单位</th>
+                    <th>备注</th>-->
                 </tr>
                 <tr th:each="infoStat : ${list}">
                     <td style="display" th:text="${infoStat.indexid}"></td>
@@ -77,11 +77,10 @@
                         </div>
                     </td>
 
-
                     <td width="75px" th:text="${infoStat.unit}"></td>
-                    <td th:text="${infoStat.citation}"></td>
+                    <!--<td th:text="${infoStat.citation}"></td>
 
-                    <td th:text="${infoStat.comment}"></td>
+                    <td th:text="${infoStat.comment}"></td>-->
                 </tr>
             </table>
         </div>

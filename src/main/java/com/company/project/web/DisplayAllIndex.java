@@ -88,10 +88,15 @@ public class DisplayAllIndex {
 		m.addAttribute("list", list);
 		return "mulihe";
 	}
-	
+
 	@RequestMapping("echarts")
-	public String echart(Model m) {
+	public String echarts(Model m) {
 		return "echarts";
+	}
+
+	@RequestMapping("diagram")
+	public String diagram(Model m) {
+		return "diagram";
 	}
 
 	/*@RequestMapping(value = "/EchartsShow")

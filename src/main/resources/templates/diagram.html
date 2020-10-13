@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org" >
+<head>
+	<meta charset="utf-8"></meta>
+	<link rel="stylesheet" href="/webjars/bootstrap/3.3.7-1/css/bootstrap.min.css" />
+	<script src="../static/echarts.js" ></script>
+	<title>旭日图</title>
+</head>
+<body>
+<div th:replace="nav :: myfooter"  ></div>
+<div class="container">
+	<div class="row">
+		<div class="col-md-6">
+			<!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+			<div id="main" style="width: auto;height:700px;margin-left: auto"></div>
+		</div>
+		<div class="col-md-6">
+		<!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+		<div id="main1" style="width: auto;height:700px;margin-left: auto"></div>
+	</div>
+	</div>
+</div>
+<script type="text/javascript">
+        // 基于准备好的dom，初始化echarts实例
+		var myChart = echarts.init(document.getElementById('main'));
+		var myChart1 = echarts.init(document.getElementById('main1'));
+		myChart.showLoading();
+		myChart1.showLoading();
+
+		$.ajax({
+			type : "post",
+			async : true,            //异步请求（同步请求将会锁住浏览器，用户其他操作必须等待请求完成才可以执行）
+			url : "/EchartsShow",
+			data : {},
+			dataType : "json",        //返回数据形式为json
+			success : function(results) {
+				if (results) {
+					myChart.hideLoading();
+					myChart1.hideLoading();//隐藏加载动画
+					myChart.setOption({        //加载数据图表
+						series: {
+							type: 'sunburst',
+							data: [{
+								name: '压力',
+								itemStyle: {
+									//color: '#b571e0'
+								},
+								value: 8,
+								children: [{
+									value: 3,
+									name: '污染物累积',
+									children: [{
+										value: 1,
+										name: '城市热岛效应强度'
+									},{
+										value: 1,
+										name: '大气主要污染物浓度'
+									},{
+										value: 1,
+										name: '达到或优于III类水比例'
+									}],
+								}, {
+									value: 2,
+									name: '空间占用',
+									children: [{
+										value: 1,
+										name: '不透水面比例'
+									},{
+										value: 1,
+										name: '生态岸线保有率（含海岸线）'
+									}],
+								}, {
+									value: 3,
+									name: '资源消耗',
+									children: [{
+										value: 1,
+										name: '城市热岛效应强度'
+									},{
+										value: 1,
+										name: '化肥施用量'
+									},{
+										value: 1,
+										name: '被遗弃和受污染土地面积'
+									}],
+								}]
+							}, {
+								name: '状态',
+								children: [{
+									name: '结构',
+									value: 4,
+									children: [{
+										value: 1,
+										name: '景观多样性指数'
+									},{
+										value: 1,
+										name: '空气污染指数（API）'
+									},{
+										value: 1,
+										name: '地表水环境功能区达标率'
+									},{
+										value: 1,
+										name: '生态环境状况指标（EI）\n'
+									}],
+								}, {
+									name: '功能',
+									value: 2
+								}, {
+									name: '恢复力',
+									value: 2
+								}]
+							}, {
+								name: '响应',
+								children: [{
+									name: '环境管理',
+									value: 1
+								}, {
+									name: '生态保护',
+									value: 1
+								},{
+									name: '资源节约',
+									value: 1
+								}, {
+									name: '支撑能力',
+									value: 1
+								}, {
+									name: '监测能力',
+									value: 1
+								}]
+							}],
+
+							levels: [{}, {
+								r0: '15%',
+								r: '35%',
+								itemStyle: {
+									borderWidth: 2
+								},
+								label: {
+									rotate: 'tangential'
+								}
+							}, {
+								r0: '35%',
+								r: '70%',
+								label: {
+									align: 'right'
+								}
+							}, {
+								r0: '70%',
+								r: '74%',
+								label: {
+									position: 'outside',
+									padding: 3,
+									silent: false
+								},
+								itemStyle: {
+									borderWidth: 3
+								}
+							}]
+						}
+					});
+					myChart1.setOption({        //加载数据图表
+						series: {
+							type: 'sunburst',
+							data: [{
+								name: '压力',
+								itemStyle: {
+									//color: '#b571e0'
+								},
+								value: 8,
+								children: [{
+									value: 3,
+									name: '污染物累积',
+									children: [{
+										value: 1,
+										name: '城市热岛效应强度'
+									},{
+										value: 1,
+										name: '大气主要污染物浓度'
+									},{
+										value: 1,
+										name: '达到或优于III类水比例'
+									}],
+								}, {
+									value: 2,
+									name: '空间占用',
+									children: [{
+										value: 1,
+										name: '不透水面比例'
+									},{
+										value: 1,
+										name: '生态岸线保有率（含海岸线）'
+									}],
+								}, {
+									value: 3,
+									name: '资源消耗',
+									children: [{
+										value: 1,
+										name: '城市热岛效应强度'
+									},{
+										value: 1,
+										name: '化肥施用量'
+									},{
+										value: 1,
+										name: '被遗弃和受污染土地面积'
+									}],
+								}]
+							}, {
+								name: '状态',
+								children: [{
+									name: '结构',
+									value: 4,
+									children: [{
+										value: 1,
+										name: '景观多样性指数'
+									},{
+										value: 1,
+										name: '空气污染指数（API）'
+									},{
+										value: 1,
+										name: '地表水环境功能区达标率'
+									},{
+										value: 1,
+										name: '生态环境状况指标（EI）\n'
+									}],
+								}, {
+									name: '功能',
+									value: 2
+								}, {
+									name: '恢复力',
+									value: 2
+								}]
+							}, {
+								name: '响应',
+								children: [{
+									name: '环境管理',
+									value: 1
+								}, {
+									name: '生态保护',
+									value: 1
+								},{
+									name: '资源节约',
+									value: 1
+								}, {
+									name: '支撑能力',
+									value: 1
+								}, {
+									name: '监测能力',
+									value: 1
+								}]
+							}],
+
+							levels: [{}, {
+								r0: '15%',
+								r: '35%',
+								itemStyle: {
+									borderWidth: 2
+								},
+								label: {
+									rotate: 'tangential'
+								}
+							}, {
+								r0: '35%',
+								r: '70%',
+								label: {
+									align: 'right'
+								}
+							}, {
+								r0: '70%',
+								r: '74%',
+								label: {
+									position: 'outside',
+									padding: 3,
+									silent: false
+								},
+								itemStyle: {
+									borderWidth: 3
+								}
+							}]
+						}
+					});
+				}
+			},
+			error : function(errorMsg) {
+				//请求失败时执行该函数
+				alert("图表请求数据失败!");
+				myChart.hideLoading();
+			}
+		});//end ajax
+
+        /*// 指定图表的配置项和数据
+        var option = {
+            series: {
+                type: 'sunburst',
+                data: [{
+                    name: '压力',
+					 itemStyle: {
+					//color: '#b571e0'
+					},
+                    value: 8,
+                    children: [{
+                        value: 3,
+                        name: '污染物累积',
+                        children: [{
+                            value: 1,
+                            name: '城市热岛效应强度'
+                        },{
+                            value: 1,
+                            name: '大气主要污染物浓度'
+                        },{
+                            value: 1,
+                            name: '达到或优于III类水比例'
+                        }],
+                    }, {
+                        value: 2,
+                        name: '空间占用',
+                        children: [{
+                            value: 1,
+                            name: '不透水面比例'
+                        },{
+                            value: 1,
+                            name: '生态岸线保有率（含海岸线）'
+                        }],
+                        }, {
+                        value: 3,
+                        name: '资源消耗',
+                        children: [{
+                            value: 1,
+                            name: '城市热岛效应强度'
+                        },{
+                            value: 1,
+                            name: '化肥施用量'
+                        },{
+                            value: 1,
+                            name: '被遗弃和受污染土地面积'
+                        }],
+                    }]
+                }, {
+                    name: '状态',
+                    children: [{
+                        name: '结构',
+                        value: 4,
+                        children: [{
+                            value: 1,
+                            name: '景观多样性指数'
+                        },{
+                            value: 1,
+                            name: '空气污染指数（API）'
+                        },{
+                            value: 1,
+                            name: '地表水环境功能区达标率'
+                        },{
+                            value: 1,
+                            name: '生态环境状况指标（EI）\n'
+                        }],
+                    }, {
+                        name: '功能',
+                        value: 2
+                    }, {
+                        name: '恢复力',
+                        value: 2
+                    }]
+                }, {
+                    name: '响应',
+                    children: [{
+                        name: '环境管理',
+                        value: 1
+                    }, {
+                        name: '生态保护',
+                        value: 1
+                    },{
+                        name: '资源节约',
+                        value: 1
+                    }, {
+                        name: '支撑能力',
+                        value: 1
+                    }, {
+                        name: '监测能力',
+                        value: 1
+                    }]
+                }],
+
+            levels: [{}, {
+            r0: '15%',
+            r: '35%',
+            itemStyle: {
+                borderWidth: 2
+            },
+            label: {
+                rotate: 'tangential'
+            }
+        }, {
+            r0: '35%',
+            r: '70%',
+            label: {
+                align: 'right'
+            }
+        }, {
+            r0: '70%',
+            r: '74%',
+            label: {
+                position: 'outside',
+                padding: 3,
+                silent: false
+            },
+            itemStyle: {
+                borderWidth: 3
+            }
+        }]
+            }
+        };
+
+        // 使用刚指定的配置项和数据显示图表。
+        myChart.setOption(option);*/
+		</script>
+</body>
+</html>

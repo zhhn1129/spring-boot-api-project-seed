@@ -31,57 +31,16 @@
         <td th:text="${infoStat.psr}"></td>
         <td th:text="${infoStat.firstindex}"></td>
         <td th:text="${infoStat.secondindex}"></td>
-        <td th:text="${infoStat.standard}"></td>
-        <td th:text="${infoStat.unit}"></td>
-        <!--<td th:text="${infoStat.currentvalue}"></td>
-        <td th:text="${infoStat.ecologicalfactor}"></td>
-        
-        <td width="100px" th:switch="${infoStat.finishtime!=null}" >
-        	<div th:case="true" th:text="${#dates.format(infoStat.finishtime, 'yyyy-MM-dd')}"></div>
-       	 	<div th:case="false" th:text="${infoStat.finishtime}"></div>
-        </td>
-        
-        <td width="180px" th:text="${infoStat.citation}"></td>-->
+        <td >
+            <span th:text="${infoStat.standard}"></span>
+            <div th:if="${infoStat.standard}!=null">
+                <a th:href="@{/modifyYga?(id=${infoStat.id})}">修改</a>
+            </div>
+        </td><td th:text="${infoStat.unit}"></td>
+
     </tr>
     </table>
     </div>
-    
-    <!-- <div  class="modal-footer no-margin-top">
-    <nav style="text-align: center;">
-    <ul class="pagination  no-margin">
-        首页
-        <li class="page-item">	'/pageController?pageNum='+${pageNum}
-            <a th:href="@{'/test1?page=1&amp;size=${pageInfo.size}'}">首页</a>
-        </li>
-
-        上一页
-        <li class="page-item" th:if="${pageInfo.pageNum!=1 and pageInfo.pageNum!=0}">
-        <a class="page-link" th:href="@{/test1?(size=${pageInfo.size},page=${pageInfo.hasPreviousPage}?${pageInfo.prePage}:${pageInfo.pages})}">上一页</a></li>
-    
-		<li class="page-item active"><a class="page-link"><span th:text="第+${pageInfo.pageNum}+页"></span></a></li>
-    	
-    	中间页
-        <li class="page-item " th:each="pageNum:${pageInfo.navigatepageNums}">
-        	
-            <a th:href="@{/test1?(size=${pageInfo.size},page=${pageNum})}" th:text="${pageNum }" th:if="${pageNum ne pageInfo.pageNum}"></a>
-            <a th:href="@{/test1?(size=${pageInfo.size},page=${pageNum})}" th:text="${pageNum }" th:if="${pageNum eq pageInfo.pageNum}" th:style="'font-weight:bold;background: #6faed9;'"></a>
-        </li>
-    	
-    	<li class="page-item"><a class="page-link"><span th:text="第+${pageInfo}+页"></span></a></li>
-    
-        下一页
-        <li class="page-item" th:if="${pageInfo.pageNum != pageInfo.pages}">
-        <a class="page-link" th:href="@{/test1?size=(${pageInfo.size},page=${pageInfo.hasNextPage}?${pageInfo.nextPage}:${pageInfo.pages})}">下一页</a></li>
-
-    	<li class="page-item"><a class="page-link"><span th:text="共+${pageInfo.pages}+页"></span></a></li>
-        尾页
-       	<li class="page-item" th:if="${pageInfo.pageNum != pageInfo.pages}">
-       	<a class="page-link" th:href="@{/test1?(size=${pageInfo.size},page=${pageInfo.pages})}">尾页</a>
-       	</li>
-
-    </ul>
-    </nav>
-</div> -->
     
     </body>
 </html>
